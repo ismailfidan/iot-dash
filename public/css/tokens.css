@@ -1,0 +1,44 @@
+:root {
+  /* Arka Plan & Yüzeyler */
+  --bg-base: #070b14;
+  --bg-elevated: rgba(17, 25, 40, 0.68);
+  --bg-card: rgba(20, 29, 47, 0.56);
+  --bg-card-hover: rgba(26, 38, 60, 0.72);
+  --bg-card-active: rgba(30, 45, 72, 0.82);
+
+  /* Cam Efektleri (Glassmorphism) */
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-strong: rgba(255, 255, 255, 0.16);
+  --glass-highlight: rgba(255, 255, 255, 0.04);
+  --glass-blur: blur(18px);
+
+  /* Metin Renkleri */
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  /* Vurgu Renkleri */
+  --accent-primary: #38bdf8;
+  --accent-primary-glow: rgba(56, 189, 248, 0.28);
+  --accent-warm: #fbbf24;
+  --accent-warm-glow: rgba(251, 191, 36, 0.28);
+  --accent-fan: #2dd4bf;
+  --accent-fan-glow: rgba(45, 212, 191, 0.26);
+  --accent-purple: #a78bfa;
+  --accent-success: #34d399;
+  --accent-danger: #f87171;
+
+  /* Boyutlar & Yuvarlaklık */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  /* Akıcı Animasyon Eğrileri */
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Tipografi */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, monospace;
+}

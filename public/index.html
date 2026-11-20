@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#090d16" />
+  <title>Akıllı Yaşam Alanları • IoT Kontrol Merkezi</title>
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+</head>
+<body>
+  <!-- Arka Plan Ambiyans Efektleri -->
+  <div class="ambient-bg" aria-hidden="true">
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+    <div class="ambient-orb orb-3"></div>
+  </div>
+
+  <!-- Güvenli Giriş Ekranı -->
+  <section id="auth-overlay" class="auth-overlay hidden" aria-label="Giriş Ekranı">
+    <div class="auth-card glass-panel">
+      <div class="auth-logo">
+        <span class="auth-logo-icon" id="auth-logo-icon"></span>
+        <div>
+          <h1>Akıllı Yaşam Merkezi</h1>
+          <p>1 Ana Merkez + 4 Mini Merkez ESP-NOW Ağı</p>
+        </div>
+      </div>
+
+      <form id="login-form" class="auth-form" autocomplete="off">
+        <div class="form-group">
+          <label for="username">Kullanıcı Adı</label>
+          <input id="username" name="username" type="text" placeholder="admin" required autocomplete="username" />
+        </div>
+        <div class="form-group">
+          <label for="password">Güvenlik Şifresi</label>
+          <input id="password" name="password" type="password" placeholder="••••••••" required autocomplete="current-password" />
+        </div>
+        <div id="auth-error" class="auth-error hidden" role="alert"></div>
+        <button type="submit" class="btn-primary" id="login-submit">
+          <span>Güvenli Bağlantı Kur</span>
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        <span class="security-badge">HttpOnly Oturum • HMAC-SHA256 • Rate-Limited</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ana Dashboard Kabuğu -->
+  <div id="app-shell" class="app-shell hidden">
+    <!-- Yan Menü (Masaüstü) / Üst Navigasyon (Mobil & Tablet) -->
+    <aside class="sidebar glass-panel">
+      <div class="brand">
+        <div class="brand-icon" id="brand-icon"></div>
+        <div class="brand-text">
+          <span class="brand-title">AuraHome</span>
+          <span class="brand-sub">IoT Kontrol Paneli</span>
+        </div>
+      </div>
+
+      <nav class="nav-list" id="space-nav" aria-label="Yaşam Alanları">
+        <!-- JS tarafından doldurulacak -->
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="hub-status-card" id="hub-connection-card">
+          <div class="status-dot-wrap">
+            <span class="status-dot sim" id="hub-status-dot"></span>
+          </div>
+          <div class="hub-status-info">
+            <span class="hub-status-title" id="hub-status-title">Tasarım & Simülasyon</span>
+            <span class="hub-status-sub" id="hub-status-sub">ESP32 Ana Merkez Bekleniyor</span>
+          </div>
+        </div>
+
+        <button type="button" id="logout-btn" class="btn-ghost" title="Güvenli Çıkış">
+          <span class="btn-icon" id="logout-icon"></span>
+          <span>Oturumu Kapat</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Ana İçerik Alanı -->
+    <main class="main-content">
+      <!-- Üst Bilgi Çubuğu -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <h2 id="view-title">Tüm Yaşam Alanları</h2>
+          <p id="view-subtitle">5 ESP32 Düğümü • Anlık Senkronizasyon Hazır</p>
+        </div>
+
+        <div class="topbar-right">
+          <div class="ws-pill" id="ws-status-pill" title="WebSocket Senkronizasyon Durumu">
+            <span class="ws-dot" id="ws-dot"></span>
+            <span id="ws-label">Bağlanıyor...</span>
+          </div>
+          <div class="clock-pill" id="live-clock">--:--</div>
+        </div>
+      </header>
+
+      <!-- Hızlı Senaryolar Şeridi -->
+      <section class="scenes-section" aria-label="Hızlı Senaryolar">
+        <div class="scenes-grid" id="scenes-grid">
+          <!-- JS tarafından doldurulacak -->
+        </div>
+      </section>
+
+      <!-- Dinamik İçerik (Yaşam Alanları veya ESP-NOW Topolojisi) -->
+      <section id="dashboard-content" class="dashboard-content">
+        <!-- JS tarafından doldurulacak -->
+      </section>
+    </main>
+  </div>
+
+  <!-- Bildirim Toast Alanı -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>

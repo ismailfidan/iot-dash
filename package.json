@@ -1,0 +1,29 @@
+{
+  "name": "iot-smart-living-dashboard",
+  "version": "1.0.0",
+  "description": "Node.js tabanlı IoT Akıllı Yaşam Alanları Dashboard (1 Ana Merkez + 4 Mini Merkez ESP32 / ESP-NOW mimarisi)",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "push": "node scripts/git-push.mjs"
+  },
+  "keywords": [
+    "iot",
+    "esp32",
+    "esp-now",
+    "smart-home",
+    "dashboard",
+    "websocket"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "ws": "^8.18.1"
+  }
+}
