@@ -1,0 +1,169 @@
+{
+  "hub-main": [
+    {
+      "id": "master-switch-s",
+      "size": "s",
+      "rightControl": "power"
+    },
+    {
+      "id": "master-outlet-s",
+      "size": "m",
+      "rightControl": "power"
+    },
+    {
+      "id": "master-dimmer-m-metric",
+      "size": "m",
+      "rightControl": "metric"
+    },
+    {
+      "id": "master-fan-m-metric",
+      "size": "m",
+      "rightControl": "metric"
+    },
+    {
+      "id": "master-slider-m-power",
+      "size": "l",
+      "rightControl": "metric"
+    },
+    {
+      "id": "master-dimmer-m-power",
+      "size": "m",
+      "rightControl": "power"
+    },
+    {
+      "id": "master-fan-m-power",
+      "size": "m",
+      "rightControl": "power"
+    },
+    {
+      "id": "master-switch-m",
+      "size": "m",
+      "rightControl": "power"
+    },
+    {
+      "id": "master-switch-l",
+      "size": "l",
+      "rightControl": "power"
+    },
+    {
+      "id": "master-dimmer-l",
+      "size": "l",
+      "rightControl": "metric"
+    },
+    {
+      "id": "master-fan-l",
+      "size": "l",
+      "rightControl": "metric"
+    },
+    {
+      "id": "master-climate-l",
+      "size": "l",
+      "rightControl": "metric"
+    }
+  ],
+  "mini-1": [
+    {
+      "id": "ofis-tavan-led-1",
+      "size": "m",
+      "rightControl": "power"
+    },
+    {
+      "id": "ofis-tavan-led-2",
+      "size": "m",
+      "rightControl": "power"
+    },
+    {
+      "id": "ofis-tavan-led-3",
+      "size": "m",
+      "rightControl": "power"
+    },
+    {
+      "id": "ofis-duvar-spot-tablo",
+      "size": "m",
+      "rightControl": "power"
+    }
+  ],
+  "mini-2": [
+    {
+      "id": "lazer-tavan-led-1",
+      "size": "m",
+      "rightControl": "power"
+    },
+    {
+      "id": "lazer-tavan-led-2",
+      "size": "m",
+      "rightControl": "power"
+    },
+    {
+      "id": "lazer-pencere-fani",
+      "size": "m",
+      "rightControl": "metric"
+    }
+  ],
+  "mini-3": [
+    {
+      "id": "montaj-tavan-led-1",
+      "size": "m",
+      "rightControl": "power"
+    },
+    {
+      "id": "montaj-tavan-led-2",
+      "size": "m",
+      "rightControl": "power"
+    },
+    {
+      "id": "montaj-tavan-spot-1",
+      "size": "m",
+      "rightControl": "power"
+    },
+    {
+      "id": "montaj-tavan-spot-2",
+      "size": "m",
+      "rightControl": "power"
+    },
+    {
+      "id": "montaj-tezgah-led-1",
+      "size": "m",
+      "rightControl": "power"
+    },
+    {
+      "id": "montaj-tezgah-led-2",
+      "size": "m",
+      "rightControl": "power"
+    },
+    {
+      "id": "montaj-pencere-fani",
+      "size": "m",
+      "rightControl": "metric"
+    }
+  ],
+  "mini-4": [
+    {
+      "id": "koridor-light-main",
+      "size": "m",
+      "rightControl": "power"
+    },
+    {
+      "id": "koridor-light-amb",
+      "size": "m",
+      "rightControl": "metric"
+    }
+  ],
+  "mini-5": [
+    {
+      "id": "gozcu-floodlight",
+      "size": "m",
+      "rightControl": "metric"
+    },
+    {
+      "id": "gozcu-camera-power",
+      "size": "m",
+      "rightControl": "power"
+    },
+    {
+      "id": "gozcu-siren-relay",
+      "size": "m",
+      "rightControl": "power"
+    }
+  ]
+}

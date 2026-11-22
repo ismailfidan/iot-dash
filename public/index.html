@@ -4,27 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="theme-color" content="#090d16" />
-  <title>Akıllı Yaşam Alanları • IoT Kontrol Merkezi</title>
+  <title>TEKFIKIR - IOT</title>
+  <link rel="icon" type="image/svg+xml" href="/img/favicon.svg" />
+  <link rel="shortcut icon" type="image/svg+xml" href="/img/favicon.svg" />
+  <link rel="apple-touch-icon" href="/img/favicon.svg" />
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/base.css" />
   <link rel="stylesheet" href="/css/components.css" />
 </head>
 <body>
-  <!-- Arka Plan Ambiyans Efektleri -->
-  <div class="ambient-bg" aria-hidden="true">
-    <div class="ambient-orb orb-1"></div>
-    <div class="ambient-orb orb-2"></div>
-    <div class="ambient-orb orb-3"></div>
-  </div>
-
   <!-- Güvenli Giriş Ekranı -->
   <section id="auth-overlay" class="auth-overlay hidden" aria-label="Giriş Ekranı">
     <div class="auth-card glass-panel">
       <div class="auth-logo">
         <span class="auth-logo-icon" id="auth-logo-icon"></span>
         <div>
-          <h1>Akıllı Yaşam Merkezi</h1>
-          <p>1 Ana Merkez + 4 Mini Merkez ESP-NOW Ağı</p>
+          <h1>TEKFIKIR - IOT</h1>
+          <p>AKILLI YAŞAM ALANLARI</p>
         </div>
       </div>
 
@@ -54,10 +50,10 @@
     <!-- Yan Menü (Masaüstü) / Üst Navigasyon (Mobil & Tablet) -->
     <aside class="sidebar glass-panel">
       <div class="brand">
-        <div class="brand-icon" id="brand-icon"></div>
+        <img src="/img/logo-mini.svg" alt="TEKFIKIR - IOT Logo" class="brand-logo-img" />
         <div class="brand-text">
-          <span class="brand-title">AuraHome</span>
-          <span class="brand-sub">IoT Kontrol Paneli</span>
+          <span class="brand-title">TEKFIKIR - IOT</span>
+          <span class="brand-sub">AKILLI YAŞAM ALANLARI</span>
         </div>
       </div>
 
@@ -76,6 +72,11 @@
           </div>
         </div>
 
+        <button type="button" id="sidebar-toggle-btn" class="btn-ghost btn-sidebar-toggle" title="Menüyü Kapat" aria-label="Menüyü Kapat veya Sabitle">
+          <span class="btn-icon" id="sidebar-toggle-icon"></span>
+          <span>Menüyü Kapat</span>
+        </button>
+
         <button type="button" id="logout-btn" class="btn-ghost" title="Güvenli Çıkış">
           <span class="btn-icon" id="logout-icon"></span>
           <span>Oturumu Kapat</span>
@@ -83,32 +84,42 @@
       </div>
     </aside>
 
-    <!-- Ana İçerik Alanı -->
+    <!-- Ana İçerik Alanı (Kiosk Çalışma Yüzeyi) -->
     <main class="main-content">
-      <!-- Üst Bilgi Çubuğu -->
+      <!-- Tek Birleşik Kiosk Durum & Senaryo Çubuğu -->
       <header class="topbar">
         <div class="topbar-left">
-          <h2 id="view-title">Tüm Yaşam Alanları</h2>
-          <p id="view-subtitle">5 ESP32 Düğümü • Anlık Senkronizasyon Hazır</p>
+          <h2 id="view-title">Master Cihazlar</h2>
+          <div id="view-sensors" class="topbar-sensors"></div>
         </div>
 
         <div class="topbar-right">
+          <div class="topbar-scenes" id="scenes-grid" aria-label="Hızlı Senaryolar"></div>
+
+          <button type="button" id="btn-toggle-edit" class="topbar-scene-btn" title="Kart Sıralamasını Düzenle" aria-label="Kart Sıralamasını Düzenle">
+            <span id="icon-toggle-edit"></span>
+          </button>
+
+          <div id="edit-actions" class="edit-actions hidden">
+            <button type="button" id="btn-cancel-edit" class="btn-edit-action btn-edit-cancel" title="Vazgeç">
+              <span id="icon-cancel-edit"></span>
+              <span>Vazgeç</span>
+            </button>
+            <button type="button" id="btn-save-edit" class="btn-edit-action btn-edit-save" title="Kaydet">
+              <span id="icon-save-edit"></span>
+              <span>Kaydet</span>
+            </button>
+          </div>
+
+          <div class="topbar-divider"></div>
           <div class="ws-pill" id="ws-status-pill" title="WebSocket Senkronizasyon Durumu">
             <span class="ws-dot" id="ws-dot"></span>
-            <span id="ws-label">Bağlanıyor...</span>
           </div>
           <div class="clock-pill" id="live-clock">--:--</div>
         </div>
       </header>
 
-      <!-- Hızlı Senaryolar Şeridi -->
-      <section class="scenes-section" aria-label="Hızlı Senaryolar">
-        <div class="scenes-grid" id="scenes-grid">
-          <!-- JS tarafından doldurulacak -->
-        </div>
-      </section>
-
-      <!-- Dinamik İçerik (Yaşam Alanları veya ESP-NOW Topolojisi) -->
+      <!-- Dinamik Kiosk Kontrol Izgarası -->
       <section id="dashboard-content" class="dashboard-content">
         <!-- JS tarafından doldurulacak -->
       </section>

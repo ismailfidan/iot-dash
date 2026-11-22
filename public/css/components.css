@@ -1,55 +1,51 @@
-/* --- Hızlı Senaryo Kartları --- */
+/* --- Kiosk Hızlı Senaryo Şeridi --- */
 .scenes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
 }
 
 .scene-card {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 13px 15px;
+  gap: 9px;
+  padding: 8px 10px;
   border-radius: var(--radius-md);
-  background: var(--bg-card);
+  background: var(--glass-sheen), var(--bg-card);
   border: 1px solid var(--glass-border);
-  backdrop-filter: var(--glass-blur);
   color: var(--text-primary);
   font-family: inherit;
   text-align: left;
   cursor: pointer;
-  transition: transform 0.2s var(--ease-spring), background 0.2s, border-color 0.2s, box-shadow 0.2s;
+  transition: background-color 0.14s linear, border-color 0.14s linear;
 }
 
 .scene-card:hover {
-  background: var(--bg-card-hover);
-  transform: translateY(-2px);
+  background: var(--glass-sheen), var(--bg-card-hover);
 }
 
 .scene-card:active {
-  transform: scale(0.98);
+  background: var(--glass-sheen), var(--bg-card-active);
 }
 
 .scene-card.active {
-  background: linear-gradient(135deg, rgba(56, 189, 248, 0.18), rgba(45, 212, 191, 0.1));
-  border-color: rgba(56, 189, 248, 0.42);
-  box-shadow: 0 8px 26px rgba(56, 189, 248, 0.16);
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(20, 184, 166, 0.08)), var(--bg-card);
+  border-color: rgba(56, 189, 248, 0.55);
 }
 
 .scene-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 11px;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-card);
   display: grid;
   place-items: center;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.05);
   color: var(--text-secondary);
   flex-shrink: 0;
-  transition: all 0.2s;
 }
 
 .scene-card.active .scene-icon {
-  background: rgba(56, 189, 248, 0.22);
+  background: rgba(56, 189, 248, 0.18);
   color: var(--accent-primary);
 }
 
@@ -60,31 +56,42 @@
 }
 
 .scene-name {
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .scene-desc {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   color: var(--text-muted);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* --- Yaşam Alanı Bölümleri --- */
+@media (max-width: 768px) {
+  .scenes-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .scene-desc {
+    display: none;
+  }
+}
+
+/* --- Kiosk Yaşam Alanı Modülleri (Dış Çerçevesiz) --- */
 .spaces-stack {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 14px;
 }
 
 .space-section {
-  border-radius: var(--radius-lg);
-  padding: 20px;
-  background: rgba(15, 23, 42, 0.44);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: var(--glass-blur);
+  padding: 2px 0;
+  background: transparent;
+  border: none;
 }
 
 .space-header {
@@ -92,10 +99,10 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 14px;
-  margin-bottom: 18px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--glass-border);
+  gap: 8px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid color-mix(in srgb, var(--space-accent, var(--accent-primary)) 30%, var(--glass-border));
 }
 
 .space-title-group {
@@ -107,12 +114,12 @@
 .space-icon-box {
   width: 42px;
   height: 42px;
-  border-radius: 13px;
+  border-radius: var(--radius-card);
   display: grid;
   place-items: center;
-  background: rgba(56, 189, 248, 0.14);
-  border: 1px solid rgba(56, 189, 248, 0.28);
-  color: var(--accent-primary);
+  background: color-mix(in srgb, var(--space-accent, var(--accent-primary)) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--space-accent, var(--accent-primary)) 36%, transparent);
+  color: var(--space-accent, var(--accent-primary));
 }
 
 .space-title-group h3 {
@@ -139,11 +146,12 @@
   align-items: center;
   gap: 6px;
   padding: 6px 11px;
-  border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-card);
+  background: var(--bg-card);
   border: 1px solid var(--glass-border);
   font-size: 0.78rem;
   font-weight: 500;
+  font-variant-numeric: tabular-nums;
   color: var(--text-secondary);
 }
 
@@ -157,61 +165,456 @@
   align-items: center;
   gap: 6px;
   padding: 6px 11px;
-  border-radius: var(--radius-pill);
-  background: rgba(52, 211, 153, 0.1);
-  border: 1px solid rgba(52, 211, 153, 0.25);
+  border-radius: var(--radius-card);
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.25);
   color: var(--accent-success);
   font-size: 0.75rem;
   font-weight: 600;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
 }
 
-/* --- Cihaz Kartları Izgarası --- */
+/* --- 3 Boyutlu Bento Kiosk Izgarası (S: 1x1, M: 2x1, L: 2x2) --- */
 .devices-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(136px, 1fr));
+  grid-auto-rows: 96px;
+  grid-auto-flow: dense;
   gap: 14px;
+}
+
+.device-card[data-size="s"] {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+
+.device-card[data-size="m"] {
+  grid-column: span 2;
+  grid-row: span 1;
+}
+
+.device-card[data-size="l"] {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+@media (max-width: 640px) and (min-width: 361px) {
+  .devices-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 92px;
+    gap: 10px;
+  }
+
+  .device-card {
+    padding: 9px 10px;
+  }
+
+  .device-icon,
+  .card-power-btn {
+    width: 42px;
+    height: 42px;
+  }
+
+  .device-name {
+    font-size: 0.9rem;
+  }
+
+  .device-metric {
+    font-size: 1.55rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .devices-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+  }
+
+  .device-card[data-size="s"],
+  .device-card[data-size="m"],
+  .device-card[data-size="l"] {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
 }
 
 .device-card {
+  --card-accent: var(--space-accent, var(--accent-primary));
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 14px;
-  padding: 16px;
+  justify-content: center;
+  gap: 10px;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+  contain: layout style paint;
+  padding: 10px 12px;
   border-radius: var(--radius-md);
-  background: var(--bg-card);
-  border: 1px solid var(--glass-border);
-  transition: transform 0.24s var(--ease-spring), background 0.24s, border-color 0.24s, box-shadow 0.24s;
+  background:
+    linear-gradient(170deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.025) 45%, rgba(0, 0, 0, 0.28) 100%),
+    rgba(11, 20, 44, 0.78);
+  border: 1px solid #283756;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.48),
+    0 8px 18px -6px rgba(2, 6, 23, 0.65);
+  cursor: pointer;
+  transition:
+    transform 0.1s var(--ease-spring),
+    background-color 0.16s ease,
+    border-color 0.16s ease,
+    box-shadow 0.12s ease;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.device-card[data-type="dimmer"] {
+  --card-accent: var(--accent-warm);
+}
+
+.device-card[data-type="fan"] {
+  --card-accent: var(--accent-fan);
+}
+
+.device-card[data-type="climate"] {
+  --card-accent: var(--accent-primary);
+}
+
+.device-card[data-size="l"] {
+  justify-content: space-between;
+  padding: 12px 14px;
+}
+
+/* --- S (1x1) Kompakt Kare Karo İç Düzeni --- */
+.device-card[data-size="s"] {
+  padding: 8px 10px;
+}
+
+.device-card[data-size="s"] .device-top {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  height: 100%;
+  gap: 6px;
+}
+
+.device-card[data-size="s"] .device-identity {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 100%;
+  gap: 6px;
+}
+
+.device-card[data-size="s"] .device-icon {
+  width: 34px;
+  height: 34px;
+}
+
+.device-card[data-size="s"] .device-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.device-card[data-size="s"] .device-info {
+  min-height: 0;
+  gap: 2px;
+  width: 100%;
+}
+
+.device-card[data-size="s"] .device-name {
+  font-size: 0.84rem;
+}
+
+.device-card[data-size="s"] .device-state-text {
+  font-size: 0.64rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.device-card[data-size="s"] .device-metric {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.device-card[data-size="s"] .card-power-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+}
+
+.device-card[data-size="s"] .card-power-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* --- L (2x2) Büyük Kontrol Modülü Ek İçerik --- */
+.large-switch-bar {
+  height: 38px;
+  padding: 0 12px;
+  border-radius: var(--radius-card);
+  background: rgba(8, 13, 25, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.large-switch-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.device-card.is-on .large-switch-bar {
+  background: color-mix(in srgb, var(--card-accent) 16%, rgba(8, 13, 25, 0.65));
+  border-color: color-mix(in srgb, var(--card-accent) 42%, transparent);
+  color: var(--text-primary);
+}
+
+.device-card.is-on .large-switch-dot {
+  background: var(--card-accent);
+  box-shadow: 0 0 8px var(--card-accent);
+}
+
+.device-card.has-surface-slider {
+  touch-action: pan-y;
+}
+
+/* --- Tam Yüzey Arka Plan Dolgu Slider'ı --- */
+.card-surface-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  pointer-events: none;
+  z-index: 1;
+  transition: width 0.16s ease;
+}
+
+.device-card.is-sliding .card-surface-fill {
+  transition: none;
+}
+
+.device-card.has-surface-slider.is-on .card-surface-fill {
+  border-right: 2px solid currentColor;
+  box-shadow:
+    2px 0 12px color-mix(in srgb, currentColor 65%, transparent),
+    inset -6px 0 14px color-mix(in srgb, currentColor 28%, transparent);
+}
+
+.device-card.is-on[data-type="dimmer"] .card-surface-fill {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--accent-warm) 14%, transparent) 0%,
+    color-mix(in srgb, var(--accent-warm) 32%, transparent) 100%
+  );
+  color: var(--accent-warm);
+}
+
+.device-card.is-on[data-type="fan"] .card-surface-fill {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--accent-fan) 14%, transparent) 0%,
+    color-mix(in srgb, var(--accent-fan) 32%, transparent) 100%
+  );
+  color: var(--accent-fan);
+}
+
+.device-card.is-on[data-type="slider"] .card-surface-fill {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--space-accent, var(--accent-primary)) 16%, transparent) 0%,
+    color-mix(in srgb, var(--space-accent, var(--accent-primary)) 34%, transparent) 100%
+  );
+  color: var(--space-accent, var(--accent-primary));
+}
+
+.device-card:not(.is-on) .card-surface-fill {
+  width: 0% !important;
+  border-right: none !important;
+  box-shadow: none !important;
+}
+
+/* Sürükleme Tutamacı, Boyut Seçici (S/M/L) & Düzenleme Modu Araç Çubuğu */
+.card-edit-toolbar {
+  display: none;
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  z-index: 12;
+  align-items: center;
+  gap: 4px;
+  padding: 3px;
+  border-radius: var(--radius-card);
+  background: rgba(7, 11, 22, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.55);
+}
+
+.edit-size-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.edit-pill-btn {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 0.68rem;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background-color 0.14s ease, color 0.14s ease, border-color 0.14s ease;
+}
+
+.edit-pill-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.edit-pill-btn.active {
+  background: var(--accent-primary);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #06101e;
+}
+
+.edit-style-btn.active {
+  background: var(--accent-warm);
+  color: #06101e;
+}
+
+.card-drag-handle {
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  color: var(--text-secondary);
+  display: grid;
+  place-items: center;
+  cursor: grab;
+  touch-action: none;
+}
+
+.card-drag-handle:active {
+  cursor: grabbing;
+}
+
+body.is-edit-mode .card-edit-toolbar {
+  display: inline-flex;
+}
+
+body.is-edit-mode .device-metric,
+body.is-edit-mode .card-power-btn {
+  opacity: 0;
+  pointer-events: none;
+}
+
+body.is-edit-mode .device-card {
+  border-style: dashed;
+  border-color: rgba(255, 255, 255, 0.45);
+  cursor: grab;
+  touch-action: none;
+}
+
+body.is-edit-mode .device-card:active {
+  cursor: grabbing;
+}
+
+body.is-edit-mode .device-card * {
+  pointer-events: none;
+}
+
+body.is-edit-mode .device-card .card-edit-toolbar,
+body.is-edit-mode .device-card .card-edit-toolbar * {
+  pointer-events: auto;
 }
 
 .device-card:hover {
-  background: var(--bg-card-hover);
+  border-color: #3b4f78;
+}
+
+.device-card:not(.is-sliding):active {
+  transform: translateY(2px) scale(0.985);
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.55),
+    0 2px 6px -2px rgba(2, 6, 23, 0.75);
 }
 
 .device-card.is-on {
-  background: var(--bg-card-active);
-  border-color: var(--glass-border-strong);
+  background:
+    radial-gradient(
+      120% 120% at 0% 0%,
+      color-mix(in srgb, var(--card-accent) 26%, transparent) 0%,
+      transparent 65%
+    ),
+    linear-gradient(170deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.02) 55%, rgba(0, 0, 0, 0.26) 100%),
+    rgba(12, 23, 48, 0.84);
+  border-color: color-mix(in srgb, var(--card-accent) 62%, #152342);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.45),
+    0 8px 20px -6px rgba(2, 6, 23, 0.68);
 }
 
 .device-card.is-on[data-type="dimmer"] {
-  border-color: rgba(251, 191, 36, 0.35);
-  box-shadow: 0 8px 28px rgba(251, 191, 36, 0.08);
+  border-color: color-mix(in srgb, var(--accent-warm) 62%, #152342);
 }
 
 .device-card.is-on[data-type="fan"] {
-  border-color: rgba(45, 212, 191, 0.35);
-  box-shadow: 0 8px 28px rgba(45, 212, 191, 0.08);
+  border-color: color-mix(in srgb, var(--accent-fan) 62%, #152342);
 }
 
-.device-card.is-on[data-type="switch"],
-.device-card.is-on[data-type="slider"] {
-  border-color: rgba(56, 189, 248, 0.35);
-  box-shadow: 0 8px 28px rgba(56, 189, 248, 0.08);
+.device-card.is-on[data-type="climate"] {
+  border-color: color-mix(in srgb, var(--accent-primary) 62%, #152342);
+}
+
+/* --- Drag & Drop Sıralama Durumları --- */
+body.is-reordering {
+  touch-action: none;
+  user-select: none;
+}
+
+.device-card.is-dragging {
+  opacity: 0.32;
+  border-style: dashed;
+  border-color: var(--accent-primary);
+}
+
+.drag-ghost {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 300;
+  opacity: 0.72;
+  pointer-events: none;
+  margin: 0;
+  will-change: transform;
 }
 
 .device-top {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -221,61 +624,153 @@
 .device-identity {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   min-width: 0;
 }
 
 .device-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-card);
   display: grid;
   place-items: center;
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text-muted);
+  background: linear-gradient(145deg, #070b15 0%, #0f172a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 4px 10px rgba(0, 0, 0, 0.35);
+  color: #8fa2bc;
   flex-shrink: 0;
-  transition: all 0.25s var(--ease-spring);
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
-.device-card.is-on[data-type="dimmer"] .device-icon {
-  background: rgba(251, 191, 36, 0.18);
-  color: var(--accent-warm);
+.device-icon svg {
+  width: 22px;
+  height: 22px;
 }
 
-.device-card.is-on[data-type="fan"] .device-icon {
-  background: rgba(45, 212, 191, 0.18);
-  color: var(--accent-fan);
+.device-card:hover .device-icon {
+  border-color: rgba(255, 255, 255, 0.24);
+  color: #dbe7f5;
 }
 
-.device-card.is-on[data-type="switch"] .device-icon,
-.device-card.is-on[data-type="slider"] .device-icon {
-  background: rgba(56, 189, 248, 0.18);
-  color: var(--accent-primary);
+.device-card.is-on .device-icon {
+  background: radial-gradient(
+    circle at 50% 50%,
+    color-mix(in srgb, var(--card-accent) 8%, #060d1a) 25%,
+    color-mix(in srgb, var(--card-accent) 42%, #060d1a) 100%
+  );
+  border-color: color-mix(in srgb, var(--card-accent) 80%, #ffffff);
+  box-shadow:
+    inset 0 0 12px color-mix(in srgb, var(--card-accent) 55%, transparent),
+    0 4px 12px -2px color-mix(in srgb, var(--card-accent) 38%, rgba(0, 0, 0, 0.6));
+  color: var(--card-accent);
 }
 
 .device-info {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  min-height: 48px;
   min-width: 0;
 }
 
 .device-name {
-  font-size: 0.94rem;
-  font-weight: 600;
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  line-height: 1.15;
   color: var(--text-primary);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .device-state-text {
-  font-size: 0.78rem;
+  font-size: 0.69rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.065em;
   color: var(--text-muted);
-  margin-top: 2px;
 }
 
 .device-card.is-on .device-state-text {
-  color: var(--text-secondary);
+  color: color-mix(in srgb, var(--card-accent) 55%, var(--text-primary));
+}
+
+.device-metric {
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.device-card.has-bottom-bar .device-metric {
+  align-self: flex-start;
+}
+
+.device-card.is-on .device-metric {
+  color: var(--text-primary);
+}
+
+/* --- Kart Sağ Taraf Gömülü Kiosk LED Gösterge Modülü (rightControl: 'power') --- */
+.card-power-btn {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top-color: rgba(0, 0, 0, 0.45);
+  border-bottom-color: rgba(255, 255, 255, 0.14);
+  background: radial-gradient(circle at 50% 35%, #0a101f 0%, #050811 100%);
+  box-shadow:
+    inset 0 3px 6px rgba(0, 0, 0, 0.82),
+    inset 0 0 0 2px rgba(15, 23, 42, 0.9),
+    0 1px 0 rgba(255, 255, 255, 0.07);
+  color: #475569;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  align-self: center;
+  cursor: pointer;
+  pointer-events: none;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.card-power-btn svg {
+  width: 19px;
+  height: 19px;
+}
+
+.device-card.is-on .card-power-btn {
+  background: radial-gradient(
+    circle at 50% 50%,
+    color-mix(in srgb, var(--card-accent) 28%, #071020) 20%,
+    color-mix(in srgb, var(--card-accent) 52%, #050b16) 100%
+  );
+  border-color: color-mix(in srgb, var(--card-accent) 78%, #ffffff);
+  color: color-mix(in srgb, var(--card-accent) 40%, #ffffff);
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--card-accent) 45%, transparent));
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.55),
+    inset 0 0 10px color-mix(in srgb, var(--card-accent) 62%, transparent),
+    0 0 12px -2px color-mix(in srgb, var(--card-accent) 48%, transparent);
 }
 
 /* --- Akıllı Toggle Switch --- */
@@ -303,7 +798,7 @@
   padding: 3px;
   display: flex;
   align-items: center;
-  transition: background 0.25s var(--ease-smooth), border-color 0.25s, box-shadow 0.25s;
+  transition: background-color 0.15s linear, border-color 0.15s linear;
 }
 
 .switch-thumb {
@@ -311,26 +806,22 @@
   height: 20px;
   border-radius: 50%;
   background: #e2e8f0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
-  transition: transform 0.28s var(--ease-spring), background 0.2s;
+  transition: transform 0.16s ease-out, background-color 0.15s linear;
 }
 
 .switch-control input:checked + .switch-track {
   background: var(--accent-primary);
   border-color: var(--accent-primary);
-  box-shadow: 0 0 14px var(--accent-primary-glow);
 }
 
 .device-card[data-type="dimmer"] .switch-control input:checked + .switch-track {
   background: var(--accent-warm);
   border-color: var(--accent-warm);
-  box-shadow: 0 0 14px var(--accent-warm-glow);
 }
 
 .device-card[data-type="fan"] .switch-control input:checked + .switch-track {
   background: var(--accent-fan);
   border-color: var(--accent-fan);
-  box-shadow: 0 0 14px var(--accent-fan-glow);
 }
 
 .switch-control input:checked + .switch-track .switch-thumb {
@@ -338,11 +829,12 @@
   background: #ffffff;
 }
 
-/* --- Slide / Dimmer Kontrolü --- */
+/* --- Slide / Dimmer Kontrolü (Dokunmatik Bar Stili) --- */
 .slider-wrap {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
+  margin-top: auto;
 }
 
 .slider-header {
@@ -353,112 +845,249 @@
 }
 
 .slider-val {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
   font-weight: 600;
   color: var(--text-primary);
 }
 
-.range-slider {
-  -webkit-appearance: none;
-  appearance: none;
+.touch-slider {
+  position: relative;
   width: 100%;
-  height: 10px;
-  border-radius: var(--radius-pill);
-  background: linear-gradient(
-    to right,
-    var(--slider-color, var(--accent-primary)) 0%,
-    var(--slider-color, var(--accent-primary)) var(--slider-pct, 50%),
-    rgba(255, 255, 255, 0.1) var(--slider-pct, 50%),
-    rgba(255, 255, 255, 0.1) 100%
-  );
-  outline: none;
-  cursor: pointer;
-  transition: height 0.15s;
+  height: 38px;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: color-mix(in srgb, var(--slider-color, var(--accent-primary)) 12%, #070c18);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.65),
+    0 1px 0 rgba(255, 255, 255, 0.06);
+  touch-action: pan-y;
 }
 
-.device-card[data-type="dimmer"] .range-slider {
+.device-card[data-type="slider"] .touch-slider {
+  --slider-color: var(--space-accent, var(--accent-primary));
+}
+
+.device-card[data-type="dimmer"] .touch-slider {
   --slider-color: var(--accent-warm);
 }
 
-.device-card[data-type="fan"] .range-slider {
+.device-card[data-type="fan"] .touch-slider {
   --slider-color: var(--accent-fan);
 }
 
-.range-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
+.touch-slider-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: var(--slider-pct, 0%);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--slider-color, var(--accent-primary)) 65%, #091020) 0%,
+    var(--slider-color, var(--accent-primary)) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    2px 0 12px color-mix(in srgb, var(--slider-color, var(--accent-primary)) 55%, transparent);
+  border-radius: var(--radius-card);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 7px;
+  pointer-events: none;
+}
+
+.touch-slider-handle {
+  width: 4px;
+  height: 18px;
+  border-radius: var(--radius-pill);
   background: #ffffff;
-  border: 2px solid var(--slider-color, var(--accent-primary));
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
-  cursor: grab;
-  transition: transform 0.16s var(--ease-spring);
+  flex-shrink: 0;
 }
 
-.range-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.14);
+.touch-slider[data-zero="true"] .touch-slider-handle {
+  opacity: 0;
 }
 
-.range-slider::-webkit-slider-thumb:active {
-  cursor: grabbing;
-  transform: scale(1.2);
+.range-slider {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
 }
 
-.range-slider::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #ffffff;
-  border: 2px solid var(--slider-color, var(--accent-primary));
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
-  cursor: grab;
+/* --- Fan Kademe Seçici (Slider Başlığı İçinde 1:1 Tam Kare) --- */
+.slider-header-fan {
+  align-items: center;
+  gap: 8px;
 }
 
-/* --- Fan Kademe Seçici & Dönen İkon --- */
 .fan-steps {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 0;
 }
 
 .fan-step-btn {
-  padding: 7px 4px;
-  border-radius: 9px;
-  border: 1px solid var(--glass-border);
-  background: rgba(255, 255, 255, 0.04);
+  min-width: 0;
+  height: 24px;
+  padding: 0 6px;
+  border-radius: calc(var(--radius-card) - 2px);
+  border: 1px solid #2b3b5c;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(0, 0, 0, 0.25) 100%), rgba(10, 18, 36, 0.75);
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.45);
   color: var(--text-secondary);
   font-family: inherit;
-  font-size: 0.74rem;
-  font-weight: 600;
+  font-size: 0.68rem;
+  font-weight: 700;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  transition: all 0.18s var(--ease-spring);
+  transition: transform 0.08s ease, background-color 0.14s linear, border-color 0.14s linear, color 0.14s linear;
+}
+
+.fan-step-btn:active {
+  transform: translateY(1px) scale(0.95);
+}
+
+.fan-steps .fan-step-btn {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  flex-shrink: 0;
 }
 
 .fan-step-btn:hover {
-  background: rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.11);
   color: var(--text-primary);
 }
 
 .fan-step-btn.active {
-  background: rgba(45, 212, 191, 0.22);
-  border-color: rgba(45, 212, 191, 0.5);
+  background: rgba(45, 212, 191, 0.24);
+  border-color: rgba(45, 212, 191, 0.55);
   color: var(--accent-fan);
 }
 
-@keyframes fan-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Fan aktifken renk vurgusu ve tek seferlik estetik geçiş (sürekli GPU döngüsü yok) */
+.fan-spinning {
+  color: var(--accent-fan);
+  transform: rotate(90deg);
+  transition: transform 0.4s var(--ease-spring), color 0.2s ease;
 }
 
-.fan-spinning {
-  animation: fan-spin var(--fan-duration, 1.4s) linear infinite;
-  transform-origin: center;
+/* --- Klima Kontrolü (Başlık Altı İkonlu Modlar + Simetrik 38px Çubuk) --- */
+.climate-modes {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 0;
+}
+
+.climate-mode-btn {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border-radius: calc(var(--radius-card) - 2px);
+  border: 1px solid #2b3b5c;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(0, 0, 0, 0.25) 100%), rgba(10, 18, 36, 0.75);
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.45);
+  color: var(--text-secondary);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 0.08s ease, background-color 0.14s linear, border-color 0.14s linear, color 0.14s linear;
+}
+
+.climate-mode-btn:active {
+  transform: translateY(1px) scale(0.95);
+}
+
+.climate-mode-btn svg {
+  width: 13px;
+  height: 13px;
+}
+
+.climate-mode-btn:hover {
+  background: rgba(255, 255, 255, 0.11);
+  color: var(--text-primary);
+}
+
+.climate-mode-btn.active {
+  background: rgba(56, 189, 248, 0.24);
+  border-color: rgba(56, 189, 248, 0.55);
+  color: var(--accent-primary);
+}
+
+.climate-bar {
+  display: grid;
+  grid-template-columns: 38px 1fr 38px;
+  gap: 6px;
+  height: 38px;
+}
+
+.climate-step-btn {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border-radius: var(--radius-card);
+  border: 1px solid #2b3b5c;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0.28) 100%), rgba(11, 20, 42, 0.82);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.5);
+  color: var(--text-primary);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 0.08s ease, background-color 0.14s linear, border-color 0.14s linear;
+}
+
+.climate-step-btn:active {
+  transform: translateY(1px) scale(0.95);
+}
+
+.climate-step-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--glass-border-strong);
+}
+
+.climate-meter {
+  position: relative;
+  height: 38px;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.climate-meter-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(56, 189, 248, 0.26);
+  pointer-events: none;
+  transition: width 0.18s ease;
+}
+
+.climate-meter-text {
+  position: relative;
+  z-index: 1;
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
 }
 
 /* --- ESP-NOW Topoloji Görünümü --- */
@@ -471,16 +1100,20 @@
 .node-card {
   padding: 20px;
   border-radius: var(--radius-md);
-  background: var(--bg-card);
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--space-accent, var(--accent-primary)) 10%, transparent),
+    var(--bg-card)
+  );
   border: 1px solid var(--glass-border);
+  border-top: 2px solid color-mix(in srgb, var(--space-accent, var(--accent-primary)) 55%, transparent);
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
 .node-card.is-gateway {
-  border-color: rgba(56, 189, 248, 0.42);
-  background: linear-gradient(145deg, rgba(14, 165, 233, 0.12), var(--bg-card));
+  border-color: color-mix(in srgb, var(--space-accent, var(--accent-primary)) 45%, transparent);
 }
 
 .node-card-head {
@@ -494,7 +1127,7 @@
   font-size: 0.72rem;
   font-weight: 700;
   padding: 4px 10px;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-card);
   background: rgba(56, 189, 248, 0.18);
   color: var(--accent-primary);
 }
@@ -518,7 +1151,8 @@
 }
 
 .node-meta-row code {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
   color: var(--text-primary);
   font-size: 0.78rem;
 }

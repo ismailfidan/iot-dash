@@ -118,7 +118,7 @@ export function isOriginAllowed(req) {
     if (allowedList.includes(origin)) return true;
   }
 
-  const host = req.headers.host;
+  const host = req.headers['x-forwarded-host'] || req.headers.host;
   return origin === `http://${host}` || origin === `https://${host}`;
 }
 

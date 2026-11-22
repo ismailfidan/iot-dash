@@ -94,6 +94,14 @@ export function setupWebSockets(server) {
         if (typeof spaceId === 'string' && typeof deviceId === 'string' && patch && typeof patch === 'object') {
           stateManager.updateDevice(spaceId, deviceId, patch, `ui:${ws.user}`);
         }
+      } else if (msg.type === 'space:layout') {
+        if (typeof msg.spaceId === 'string' && Array.isArray(msg.items)) {
+          stateManager.saveSpaceLayout(msg.spaceId, msg.items, `ui:${ws.user}`);
+        }
+      } else if (msg.type === 'space:reorder') {
+        if (typeof msg.spaceId === 'string' && Array.isArray(msg.deviceIds)) {
+          stateManager.saveSpaceLayout(msg.spaceId, msg.deviceIds, `ui:${ws.user}`);
+        }
       } else if (msg.type === 'scene:apply') {
         if (typeof msg.sceneId === 'string') {
           stateManager.applyScene(msg.sceneId, `ui:${ws.user}`);

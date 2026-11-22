@@ -26,14 +26,27 @@ Bu doküman, projenin temel mimarisini, geliştirme kurallarını ve güvenlik s
 
 ---
 
-## 3. Geliştirme ve Değişiklik Takibi Kuralları
-1. **Zorunlu Değişiklik Kaydı (`CHANGELOG.md`):**
+## 3. Geliştirme, Tasarım ve Değişiklik Takibi Kuralları
+1. **Tek Çatı / Bütünleşik Mimari Kuralı:**
+   - Sistemde aksini belirtmediğimiz sürece birbirinden bağımsız sayfalar ve kopuk alanlar olmayacaktır; tüm kontroller tek bir bütünleşik kontrol paneli (SPA) içinde akıcı şekilde sunulur.
+2. **Oda / Sayfa Bazlı Renk Tonu Kuralı:**
+   - Her oda veya görünümün kendine özel bir renk tonu (`--space-accent` / `--space-glow`) bulunur; yan menü, oda başlığı ve aktif kartlar bu renk tonuyla kimlik kazanır.
+3. **Merkezi Radius Yönetimi (`8px`):**
+   - Genel kartlar, paneller, ikon kutuları, butonlar ve giriş alanları için `border-radius` değeri tüm sistemde **`8px`** (`--radius-card: 8px`) olarak ayarlanır ve `public/css/tokens.css` üzerinden tek noktadan yönetilir.
+4. **Performans, Monokrom Flat İkon & Hafif CSS3 Efekt Kuralı:**
+   - **İkon Stili:** Tüm sistemde daima **tek renk (monokrom `currentColor`) flat** SVG ikonlar kullanılır; line veya solid ayrımı olmadan en net görünüm tercih edilir.
+   - **Kiosk Paneli İskeleti & Sol Dock Kuralı:** Sistem bir web sitesi gibi değil, **APK / mobil cihaz uyumlu donanım kiosk kontrol paneli** gibi çalışır. Açılışta doğrudan aktif oda (`Merkez`) tek ekrana sığan kontrol karolarıyla açılır; üstte tek birleşik durum & ikonlu senaryo şeridi yer alır; mobilde 2 sütunlu sıkı karolar kullanılır; sidebar daima ekranın solunda sabit/gizlenebilir dock olarak yer alır.
+   - **Canlı Kiosk Duvar Kağıdı & Gölgesiz Frosted Glass:** `box-shadow` ve ağır `filter: blur()` küreleri kullanılmaz. Bunun yerine saf CSS `radial-gradient` / `linear-gradient` katmanlarıyla canlı Kobalt Mavi, Periwinkle ve Zümrüt Teal tonlu kiosk duvar kağıdı üzerinde yarı saydam frosted-glass (`--glass-sheen`, hafif `blur(12px)`) karolar kullanılır. Kartların üzerine gelindiğinde yukarı/aşağı kayma (`translateY`) efekti **kesinlikle kullanılmaz**. Sistem orta halli mobil cihazlarda dahi pürüzsüz çalışmalıdır.
+5. **Tipografi Kuralı:**
+   - Varsayılan sistem fontu **Plus Jakarta Sans** (yerel `public/fonts/` Variable WOFF2, `200–800` Light–ExtraBold ağırlık aralığı, tam Türkçe desteği) olarak belirlenmiştir; harici CDN kullanılmaz.
+   - Kartların ve blokların içindeki derece (`°C`), `dBm`, yüzde (`%`), saat ve tüm sayısal göstergeler de dahil olmak üzere her yerde standart sistem fontu (`--font-sans` + `tabular-nums`) kullanılır.
+6. **Zorunlu Değişiklik Kaydı (`CHANGELOG.md`):**
    - Projede yapılan **her değişiklik** (tasarım, özellik, yapılandırma, hata düzeltme) mutlaka `CHANGELOG.md` dosyasına kaydedilir.
    - Her kayıt şu bilgileri içermelidir: **Tarih/Saat**, **Değişiklik Özeti**, **Etkilenen Dosyalar** ve **Geri Alma (Rollback) Notu**.
-2. **Servis Yönetimi:**
+7. **Servis Yönetimi:**
    - Node.js servisi `3004` portunda `node --watch server.js` ile çalışır.
    - `.env` veya izlenmeyen yapılandırma değişikliklerinde Node.js servisi yeniden başlatılır.
-3. **Git & GitHub Senkronizasyonu:**
+8. **Git & GitHub Senkronizasyonu:**
    - Tüm dosyalar `npm run push` komutu ile GitHub deposuna gönderilir.
    - Özel commit mesajı vermek için: `npm run push -- "mesajiniz"` kullanılabilir.
 
