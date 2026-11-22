@@ -248,3 +248,10 @@ logoutBtn.addEventListener('click', async () => {
 });
 
 checkSession();
+
+// PWA Service Worker Kaydı (Mobil & Masaüstü Uygulama Kurulumu)
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  });
+}

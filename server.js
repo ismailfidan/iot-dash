@@ -163,7 +163,17 @@ app.post('/api/scenes/apply', requireAuth, (req, res) => {
 });
 
 // Statik ön yüz dosyaları
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(
+  express.static(path.join(__dirname, 'public'), {
+    setHeaders(res, filePath) {
+      if (filePath.endsWith('.webmanifest')) {
+        res.setHeader('Content-Type', 'application/manifest+json; charset=utf-8');
+      } else if (filePath.endsWith('sw.js')) {
+        res.setHeader('Cache-Control', 'no-cache');
+      }
+    },
+  })
+);
 
 // HTTP + WebSocket sunucusunu başlat
 const server = http.createServer(app);
