@@ -27,7 +27,7 @@ export const SPACES_CONFIG = [
     devices: [
       {
         id: 'master-switch-s',
-        name: 'Tavan Işık (S • Röle)',
+        name: 'Tavan Işık',
         type: 'switch',
         size: 's',
         rightControl: 'power',
@@ -36,7 +36,7 @@ export const SPACES_CONFIG = [
       },
       {
         id: 'master-outlet-s',
-        name: 'UPS Prizi (S • Röle)',
+        name: 'UPS Prizi',
         type: 'switch',
         size: 's',
         rightControl: 'power',
@@ -45,7 +45,7 @@ export const SPACES_CONFIG = [
       },
       {
         id: 'master-dimmer-m-metric',
-        name: 'LED Dimmer (M • %)',
+        name: 'LED Dimmer',
         type: 'dimmer',
         size: 'm',
         sliderStyle: 'surface',
@@ -59,7 +59,7 @@ export const SPACES_CONFIG = [
       },
       {
         id: 'master-fan-m-metric',
-        name: 'Kabin Fanı (M • %)',
+        name: 'Kabin Fanı',
         type: 'fan',
         size: 'm',
         sliderStyle: 'surface',
@@ -72,7 +72,7 @@ export const SPACES_CONFIG = [
       },
       {
         id: 'master-slider-m-power',
-        name: 'Stor Perde (M • ⏻)',
+        name: 'Stor Perde',
         type: 'slider',
         size: 'm',
         sliderStyle: 'surface',
@@ -86,7 +86,7 @@ export const SPACES_CONFIG = [
       },
       {
         id: 'master-dimmer-m-power',
-        name: 'Ambiyans LED (M • ⏻)',
+        name: 'Ambiyans LED',
         type: 'dimmer',
         size: 'm',
         sliderStyle: 'surface',
@@ -100,7 +100,7 @@ export const SPACES_CONFIG = [
       },
       {
         id: 'master-fan-m-power',
-        name: 'Tavan Fanı (M • ⏻)',
+        name: 'Tavan Fanı',
         type: 'fan',
         size: 'm',
         sliderStyle: 'surface',
@@ -113,7 +113,7 @@ export const SPACES_CONFIG = [
       },
       {
         id: 'master-switch-m',
-        name: 'Sunucu WOL (M • Röle)',
+        name: 'Sunucu WOL',
         type: 'switch',
         size: 'm',
         rightControl: 'power',
@@ -123,7 +123,7 @@ export const SPACES_CONFIG = [
       },
       {
         id: 'master-switch-l',
-        name: 'Ana Şalter (L • Röle)',
+        name: 'Ana Şalter',
         type: 'switch',
         size: 'l',
         rightControl: 'power',
@@ -132,7 +132,7 @@ export const SPACES_CONFIG = [
       },
       {
         id: 'master-dimmer-l',
-        name: 'Spot Dimmer (L • Bar)',
+        name: 'Spot Dimmer',
         type: 'dimmer',
         size: 'l',
         sliderStyle: 'bar',
@@ -146,7 +146,7 @@ export const SPACES_CONFIG = [
       },
       {
         id: 'master-fan-l',
-        name: 'Egzoz Fanı (L • Kademe)',
+        name: 'Egzoz Fanı',
         type: 'fan',
         size: 'l',
         sliderStyle: 'bar',
@@ -159,7 +159,7 @@ export const SPACES_CONFIG = [
       },
       {
         id: 'master-climate-l',
-        name: 'Klima Ünitesi (L • İklim)',
+        name: 'Klima Ünitesi',
         type: 'climate',
         size: 'l',
         rightControl: 'metric',
