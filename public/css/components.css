@@ -336,8 +336,8 @@
   position: absolute;
   top: 2px;
   right: 0;
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-size: 1.15rem;
+  font-weight: 300;
 }
 
 .device-card[data-size="s"] .card-power-btn {
@@ -693,10 +693,10 @@ body.is-reordering {
 }
 
 .device-metric {
-  font-size: 1.75rem;
-  font-weight: 600;
+  font-size: 1.8rem;
+  font-weight: 300;
   line-height: 1;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
   font-variant-numeric: tabular-nums;
   color: var(--text-muted);
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
