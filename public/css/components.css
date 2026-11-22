@@ -391,59 +391,67 @@
   touch-action: pan-y;
 }
 
-/* --- Tam Yüzey Arka Plan Dolgu Slider'ı --- */
+/* --- Tam Yüzey Arka Plan Dolgu Slider'ı (GPU Composited ScaleX) --- */
 .card-surface-fill {
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
-  width: 0%;
+  width: 100%;
+  transform-origin: 0 50%;
+  transform: scaleX(var(--fill-scale, 0));
   pointer-events: none;
   z-index: 1;
-  will-change: width;
-  transition: width 0.14s ease;
+  will-change: transform;
+  transition: transform 0.16s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.14s ease;
+}
+
+.card-surface-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 2px;
+  background: currentColor;
+  transform: scaleX(calc(1 / max(var(--fill-scale, 0.001), 0.02)));
+  transform-origin: 100% 50%;
 }
 
 .device-card.is-sliding .card-surface-fill {
-  transition: none;
+  transition: none !important;
 }
 
-.device-card.has-surface-slider.is-on .card-surface-fill {
-  border-right: 2px solid currentColor;
-  box-shadow: inset -4px 0 10px color-mix(in srgb, currentColor 25%, transparent);
-}
-
-.device-card.is-on[data-type="dimmer"] .card-surface-fill {
+.device-card[data-type="dimmer"] .card-surface-fill {
   background: linear-gradient(
     90deg,
     color-mix(in srgb, var(--accent-warm) 14%, transparent) 0%,
-    color-mix(in srgb, var(--accent-warm) 32%, transparent) 100%
+    color-mix(in srgb, var(--accent-warm) 34%, transparent) 100%
   );
   color: var(--accent-warm);
 }
 
-.device-card.is-on[data-type="fan"] .card-surface-fill {
+.device-card[data-type="fan"] .card-surface-fill {
   background: linear-gradient(
     90deg,
     color-mix(in srgb, var(--accent-fan) 14%, transparent) 0%,
-    color-mix(in srgb, var(--accent-fan) 32%, transparent) 100%
+    color-mix(in srgb, var(--accent-fan) 34%, transparent) 100%
   );
   color: var(--accent-fan);
 }
 
-.device-card.is-on[data-type="slider"] .card-surface-fill {
+.device-card[data-type="slider"] .card-surface-fill {
   background: linear-gradient(
     90deg,
     color-mix(in srgb, var(--space-accent, var(--accent-primary)) 16%, transparent) 0%,
-    color-mix(in srgb, var(--space-accent, var(--accent-primary)) 34%, transparent) 100%
+    color-mix(in srgb, var(--space-accent, var(--accent-primary)) 36%, transparent) 100%
   );
   color: var(--space-accent, var(--accent-primary));
 }
 
 .device-card:not(.is-on) .card-surface-fill {
-  width: 0% !important;
-  border-right: none !important;
-  box-shadow: none !important;
+  transform: scaleX(0);
+  opacity: 0;
 }
 
 /* Sürükleme Tutamacı, Boyut Seçici (S/M/L) & Düzenleme Modu Araç Çubuğu */

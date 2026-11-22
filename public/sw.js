@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tekfikir-iot-v2';
+const CACHE_NAME = 'tekfikir-iot-v3';
 const STATIC_ASSETS = [
   '/',
   '/index.html',

@@ -320,7 +320,7 @@ export function buildDeviceCardHTML(spaceId, device) {
       data-size="${size}"
       data-right-control="${rightControl}"
     >
-      ${isSurfaceSlider ? `<div class="card-surface-fill" data-role="card-surface-fill" style="width:${fillPct}%"></div>` : ''}
+      ${isSurfaceSlider ? `<div class="card-surface-fill" data-role="card-surface-fill" data-pct="${fillPct}" style="--fill-scale:${(fillPct / 100).toFixed(4)}"></div>` : ''}
       <div class="card-edit-toolbar" data-edit-toolbar>
         <div class="edit-size-group" role="group" aria-label="Kart Boyutu">
           <button type="button" class="edit-pill-btn ${size === 's' ? 'active' : ''}" data-edit-size="s" title="Küçük (1x1)">S</button>
@@ -367,7 +367,8 @@ function applySurfaceSliderPreview(card, type, pct) {
 
   const fillEl = card.querySelector('[data-role="card-surface-fill"]');
   if (fillEl) {
-    fillEl.style.width = `${pct}%`;
+    fillEl.dataset.pct = String(pct);
+    fillEl.style.setProperty('--fill-scale', (pct / 100).toFixed(4));
   }
 
   const metricEl = card.querySelector('[data-role="device-metric"]');
@@ -409,8 +410,10 @@ export function patchDeviceCard(deviceId, device) {
   const card = document.querySelector(`[data-device-card="${deviceId}"]`);
   if (!card) return;
 
-  // Kullanıcı şu an bu kartın yüzeyini parmağıyla/faresiyle sürüklüyorsa anlık sürüklemeyi ezme
+  // Kullanıcı şu an bu kartın yüzeyini parmağıyla/faresiyle sürüklüyorsa veya yeni bıraktıysa WebSocket yankısını ezme
   if (card.classList.contains('is-sliding')) return;
+  const holdUntil = Number(card.dataset.slideHoldUntil || 0);
+  if (holdUntil > Date.now()) return;
 
   card.classList.toggle('is-on', Boolean(device.on));
 
@@ -433,7 +436,8 @@ export function patchDeviceCard(deviceId, device) {
     if (device.on) {
       fillPct = device.type === 'fan' ? (device.pwm ?? 0) : (device.value ?? 0);
     }
-    surfaceFillEl.style.width = `${fillPct}%`;
+    surfaceFillEl.dataset.pct = String(fillPct);
+    surfaceFillEl.style.setProperty('--fill-scale', (fillPct / 100).toFixed(4));
   }
 
   const sliderEl = card.querySelector('input[type="range"]');
@@ -706,7 +710,7 @@ export function bindDashboardEvents(containerEl, scenesEl, navEl) {
   function getCardCurrentPct(card) {
     if (!card.classList.contains('is-on')) return 0;
     const fillEl = card.querySelector('[data-role="card-surface-fill"]');
-    const parsed = parseFloat(fillEl?.style.width);
+    const parsed = parseFloat(fillEl?.dataset.pct);
     return Number.isFinite(parsed) ? Math.max(0, Math.min(100, Math.round(parsed))) : 0;
   }
 
@@ -719,6 +723,7 @@ export function bindDashboardEvents(containerEl, scenesEl, navEl) {
     if (slideState.active) {
       applySurfaceSliderPreview(slideState.card, slideState.type, slideState.currentPct);
       slideState.card.classList.remove('is-sliding');
+      slideState.card.dataset.slideHoldUntil = String(Date.now() + 350);
       const patch =
         slideState.type === 'fan' ? { pwm: slideState.currentPct } : { value: slideState.currentPct };
       store.sendDeviceUpdate(slideState.spaceId, slideState.deviceId, patch, 0);
