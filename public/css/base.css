@@ -31,11 +31,9 @@ body::before {
   contain: strict;
   background-color: var(--bg-base);
   background-image:
-    radial-gradient(ellipse 65% 55% at 18% 18%, rgba(37, 99, 235, 0.55) 0%, transparent 70%),
-    radial-gradient(ellipse 55% 50% at 48% 58%, rgba(96, 165, 250, 0.34) 0%, transparent 68%),
-    radial-gradient(ellipse 60% 60% at 88% 82%, rgba(20, 184, 166, 0.45) 0%, transparent 68%),
-    radial-gradient(ellipse 50% 45% at 90% 10%, rgba(15, 23, 42, 0.85) 0%, transparent 70%),
-    linear-gradient(135deg, #0b1942 0%, #16336e 42%, #134054 78%, #0a1829 100%);
+    radial-gradient(ellipse 75% 65% at 15% 15%, rgba(37, 99, 235, 0.48) 0%, transparent 72%),
+    radial-gradient(ellipse 70% 65% at 88% 85%, rgba(20, 184, 166, 0.38) 0%, transparent 72%),
+    linear-gradient(135deg, #0b1942 0%, #142f66 48%, #0a1829 100%);
 }
 
 .hidden {
@@ -862,13 +860,23 @@ body.is-edit-mode .edit-actions {
   }
 }
 
-/* Mobil / Dokunmatik Cihazlarda 120Hz Pürüzsüz Scroll İçin Ağır Backdrop-Filter İptali */
+/* Mobil / Dokunmatik Cihazlarda 120Hz Pürüzsüz Scroll İçin Ağır Backdrop-Filter ve Alpha Overdraw İptali */
 @media (hover: none) and (pointer: coarse), (max-width: 900px) {
+  body::before {
+    display: none !important;
+  }
+
+  body {
+    background-color: #0d1d45;
+    background-image: linear-gradient(145deg, #0b1940 0%, #132c5e 52%, #0d2b3e 100%);
+    background-attachment: scroll;
+  }
+
   .sidebar,
   .topbar,
   .glass-panel {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    background: var(--glass-sheen), rgba(10, 18, 38, 0.92);
+    background: #0c1733;
   }
 }

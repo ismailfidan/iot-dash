@@ -40,8 +40,36 @@ function getDeviceStateText(device) {
 
 /**
  * Yan Menü Navigasyonu (Kiosk Sırası: Odalar üstte, Tüm Alanlar & ESP-NOW altta)
+ * DOM zaten çizilmişse sıfırdan innerHTML yapmak yerine yalnızca aktif sınıfı ve rozetleri günceller (0ms reflow).
  */
 export function renderNavigation(navEl, snapshot, activeFilter) {
+  const existingBtns = navEl.querySelectorAll('[data-filter]');
+  if (existingBtns.length === snapshot.spaces.length + 2) {
+    for (const space of snapshot.spaces) {
+      const btn = navEl.querySelector(`[data-filter="${space.id}"]`);
+      if (!btn) continue;
+      const activeCount = space.devices.filter((d) => d.on).length;
+      const hasActive = activeCount > 0;
+      btn.classList.toggle('active', activeFilter === space.id);
+      btn.classList.toggle('has-active', hasActive);
+      let badge = btn.querySelector('.nav-badge');
+      if (hasActive) {
+        if (!badge) {
+          badge = document.createElement('span');
+          badge.className = 'nav-badge';
+          btn.appendChild(badge);
+        }
+        const countStr = String(activeCount);
+        if (badge.textContent !== countStr) badge.textContent = countStr;
+      } else if (badge) {
+        badge.remove();
+      }
+    }
+    navEl.querySelector('[data-filter="all"]')?.classList.toggle('active', activeFilter === 'all');
+    navEl.querySelector('[data-filter="topology"]')?.classList.toggle('active', activeFilter === 'topology');
+    return;
+  }
+
   let html = '';
 
   for (const space of snapshot.spaces) {
@@ -90,6 +118,14 @@ export function renderNavigation(navEl, snapshot, activeFilter) {
  * Üst Çubuk Kompakt İkonlu Hızlı Senaryo Butonları
  */
 export function renderScenes(scenesEl, snapshot) {
+  const existing = scenesEl.querySelectorAll('[data-scene-id]');
+  if (existing.length === snapshot.scenes.length) {
+    existing.forEach((btn) => {
+      btn.classList.toggle('active', snapshot.activeScene === btn.dataset.sceneId);
+    });
+    return;
+  }
+
   scenesEl.innerHTML = snapshot.scenes
     .map(
       (scene) => `
@@ -676,7 +712,12 @@ export function bindDashboardEvents(containerEl, scenesEl, navEl) {
 
   function finishSurfaceSlide() {
     if (!slideState) return;
+    if (slideState.rafId) {
+      cancelAnimationFrame(slideState.rafId);
+      slideState.rafId = 0;
+    }
     if (slideState.active) {
+      applySurfaceSliderPreview(slideState.card, slideState.type, slideState.currentPct);
       slideState.card.classList.remove('is-sliding');
       const patch =
         slideState.type === 'fan' ? { pwm: slideState.currentPct } : { value: slideState.currentPct };
@@ -829,7 +870,15 @@ export function bindDashboardEvents(containerEl, scenesEl, navEl) {
         const pct = Math.max(0, Math.min(100, Math.round(rawPct)));
         if (pct === slideState.currentPct) return;
         slideState.currentPct = pct;
-        applySurfaceSliderPreview(slideState.card, slideState.type, pct);
+
+        if (!slideState.rafId) {
+          const activeSlide = slideState;
+          activeSlide.rafId = requestAnimationFrame(() => {
+            activeSlide.rafId = 0;
+            if (!activeSlide.card) return;
+            applySurfaceSliderPreview(activeSlide.card, activeSlide.type, activeSlide.currentPct);
+          });
+        }
 
         const patch = slideState.type === 'fan' ? { pwm: pct } : { value: pct };
         store.sendDeviceUpdate(slideState.spaceId, slideState.deviceId, patch, 55);

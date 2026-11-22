@@ -252,18 +252,17 @@
   contain: layout style paint;
   padding: 10px 12px;
   border-radius: var(--radius-md);
-  background:
-    linear-gradient(170deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.025) 45%, rgba(0, 0, 0, 0.28) 100%),
-    rgba(11, 20, 44, 0.78);
+  background: linear-gradient(165deg, #16264c 0%, #0d1836 60%, #091229 100%);
   border: 1px solid #283756;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.14),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.48),
-    0 8px 18px -6px rgba(2, 6, 23, 0.65);
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.45),
+    0 6px 14px -4px rgba(2, 6, 23, 0.55);
   cursor: pointer;
+  touch-action: manipulation;
   transition:
-    background-color 0.16s ease,
-    border-color 0.16s ease;
+    background-color 0.14s ease,
+    border-color 0.14s ease;
   user-select: none;
   -webkit-user-select: none;
 }
@@ -401,7 +400,8 @@
   width: 0%;
   pointer-events: none;
   z-index: 1;
-  transition: width 0.16s ease;
+  will-change: width;
+  transition: width 0.14s ease;
 }
 
 .device-card.is-sliding .card-surface-fill {
@@ -410,9 +410,7 @@
 
 .device-card.has-surface-slider.is-on .card-surface-fill {
   border-right: 2px solid currentColor;
-  box-shadow:
-    2px 0 12px color-mix(in srgb, currentColor 65%, transparent),
-    inset -6px 0 14px color-mix(in srgb, currentColor 28%, transparent);
+  box-shadow: inset -4px 0 10px color-mix(in srgb, currentColor 25%, transparent);
 }
 
 .device-card.is-on[data-type="dimmer"] .card-surface-fill {
@@ -556,16 +554,14 @@ body.is-edit-mode .device-card .card-edit-toolbar * {
   background:
     radial-gradient(
       120% 120% at 0% 0%,
-      color-mix(in srgb, var(--card-accent) 26%, transparent) 0%,
-      transparent 65%
-    ),
-    linear-gradient(170deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.02) 55%, rgba(0, 0, 0, 0.26) 100%),
-    rgba(12, 23, 48, 0.84);
+      color-mix(in srgb, var(--card-accent) 26%, #172a54) 0%,
+      #0e1b3d 68%
+    );
   border-color: color-mix(in srgb, var(--card-accent) 62%, #152342);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.22),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.45),
-    0 8px 20px -6px rgba(2, 6, 23, 0.68);
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.42),
+    0 6px 14px -4px rgba(2, 6, 23, 0.6);
 }
 
 .device-card.is-on[data-type="dimmer"] {
@@ -757,11 +753,10 @@ body.is-reordering {
   );
   border-color: color-mix(in srgb, var(--card-accent) 78%, #ffffff);
   color: color-mix(in srgb, var(--card-accent) 40%, #ffffff);
-  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--card-accent) 45%, transparent));
   box-shadow:
     inset 0 2px 5px rgba(0, 0, 0, 0.55),
-    inset 0 0 10px color-mix(in srgb, var(--card-accent) 62%, transparent),
-    0 0 12px -2px color-mix(in srgb, var(--card-accent) 48%, transparent);
+    inset 0 0 8px color-mix(in srgb, var(--card-accent) 58%, transparent),
+    0 0 10px -2px color-mix(in srgb, var(--card-accent) 45%, transparent);
 }
 
 /* --- Akıllı Toggle Switch --- */

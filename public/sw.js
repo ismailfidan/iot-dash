@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tekfikir-iot-v1';
+const CACHE_NAME = 'tekfikir-iot-v2';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -44,21 +44,26 @@ self.addEventListener('fetch', (event) => {
 
   const url = new URL(request.url);
 
-  // API ve WebSocket isteklerini her zaman doğrudan ağdan geçir (önbellekleme)
+  // API ve WebSocket isteklerini her zaman doğrudan ağdan geçir
   if (url.pathname.startsWith('/api/') || url.pathname.startsWith('/ws/')) {
     return;
   }
 
-  // Network-first stratejisi: İnternet/sunucu varken her zaman en güncel dosyayı getir, çevrimdışıysa önbellekten sun
+  // Stale-While-Revalidate: Statik dosyaları telefondaki önbellekten 0ms'de anında aç, arka planda sessizce güncelle
   event.respondWith(
-    fetch(request)
-      .then((response) => {
-        if (response && response.status === 200 && response.type === 'basic') {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
-        }
-        return response;
+    caches.open(CACHE_NAME).then((cache) =>
+      cache.match(request).then((cachedResponse) => {
+        const fetchPromise = fetch(request)
+          .then((networkResponse) => {
+            if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+              cache.put(request, networkResponse.clone());
+            }
+            return networkResponse;
+          })
+          .catch(() => cachedResponse);
+
+        return cachedResponse || fetchPromise;
       })
-      .catch(() => caches.match(request))
+    )
   );
 });
