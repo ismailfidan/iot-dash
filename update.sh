@@ -58,14 +58,10 @@ echo -e "${GREEN}✔ Bağımlılıklar başarıyla yüklendi.${NC}\n"
 
 # 4. aaPanel Node Servisi / PM2 Yeniden Başlatma
 echo -e "${YELLOW}🔄 [4/4] Uygulama servisi (iot_tekfikir) yeniden başlatılıyor...${NC}"
-if [ -f "/www/server/panel/script/nodejs-service.py" ]; then
-  if [ "$(id -u)" -eq 0 ]; then
-    /www/server/panel/pyenv/bin/python /www/server/panel/script/nodejs-service.py iot_tekfikir restart
-  else
-    sudo /www/server/panel/pyenv/bin/python /www/server/panel/script/nodejs-service.py iot_tekfikir restart
-  fi
-  chown -R tfr_server:www "$PROJECT_DIR" 2>/dev/null || sudo chown -R tfr_server:www "$PROJECT_DIR" 2>/dev/null || true
-  chmod -R 775 "$PROJECT_DIR" 2>/dev/null || true
+if sudo -n /www/server/panel/pyenv/bin/python /www/server/panel/script/nodejs-service.py iot_tekfikir restart > /dev/null 2>&1; then
+  pm2 delete iot_tekfikir > /dev/null 2>&1 || true
+  sudo chown -R tfr_server:www "$PROJECT_DIR" 2>/dev/null || true
+  sudo chmod -R 775 "$PROJECT_DIR" 2>/dev/null || true
   echo -e "${GREEN}✔ aaPanel Node servisi (iot_tekfikir - Port 3004) yeniden başlatıldı.${NC}"
 elif command -v pm2 &> /dev/null; then
   if pm2 describe iot_tekfikir > /dev/null 2>&1; then
