@@ -29,6 +29,8 @@ const btnToggleEdit = document.getElementById('btn-toggle-edit');
 const editActionsEl = document.getElementById('edit-actions');
 const btnCancelEdit = document.getElementById('btn-cancel-edit');
 const btnSaveEdit = document.getElementById('btn-save-edit');
+const btnFullscreen = document.getElementById('btn-fullscreen');
+const iconFullscreen = document.getElementById('icon-fullscreen');
 
 // Statik ikonları yerleştir
 document.getElementById('auth-logo-icon').innerHTML = getIcon('shield');
@@ -36,6 +38,31 @@ document.getElementById('logout-icon').innerHTML = getIcon('logout');
 document.getElementById('icon-toggle-edit').innerHTML = getIcon('edit');
 document.getElementById('icon-cancel-edit').innerHTML = getIcon('x');
 document.getElementById('icon-save-edit').innerHTML = getIcon('check');
+if (iconFullscreen) {
+  iconFullscreen.innerHTML = getIcon('fullscreen');
+}
+
+function updateFullscreenIcon() {
+  if (!iconFullscreen) return;
+  const isFs = Boolean(document.fullscreenElement || document.webkitFullscreenElement);
+  iconFullscreen.innerHTML = getIcon(isFs ? 'fullscreenExit' : 'fullscreen');
+}
+
+function toggleFullscreen() {
+  const docEl = document.documentElement;
+  const isFs = Boolean(document.fullscreenElement || document.webkitFullscreenElement);
+  if (!isFs) {
+    const req = docEl.requestFullscreen || docEl.webkitRequestFullscreen;
+    req?.call(docEl, { navigationUI: 'hide' })?.catch?.(() => {});
+  } else {
+    const exit = document.exitFullscreen || document.webkitExitFullscreen;
+    exit?.call(document)?.catch?.(() => {});
+  }
+}
+
+btnFullscreen?.addEventListener('click', toggleFullscreen);
+document.addEventListener('fullscreenchange', updateFullscreenIcon);
+document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
 
 function setEditMode(enabled) {
   document.body.classList.toggle('is-edit-mode', enabled);
