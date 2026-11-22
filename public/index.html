@@ -67,16 +67,6 @@
       </nav>
 
       <div class="sidebar-footer">
-        <div class="hub-status-card" id="hub-connection-card">
-          <div class="status-dot-wrap">
-            <span class="status-dot sim" id="hub-status-dot"></span>
-          </div>
-          <div class="hub-status-info">
-            <span class="hub-status-title" id="hub-status-title">Tasarım & Simülasyon</span>
-            <span class="hub-status-sub" id="hub-status-sub">ESP32 Ana Merkez Bekleniyor</span>
-          </div>
-        </div>
-
         <button type="button" id="sidebar-toggle-btn" class="btn-ghost btn-sidebar-toggle" title="Menüyü Kapat" aria-label="Menüyü Kapat veya Sabitle">
           <span class="btn-icon" id="sidebar-toggle-icon"></span>
           <span>Menüyü Kapat</span>
@@ -93,10 +83,6 @@
     <main class="main-content">
       <!-- Tek Birleşik Kiosk Durum & Senaryo Çubuğu -->
       <header class="topbar">
-        <div class="topbar-left">
-          <div id="view-sensors" class="topbar-sensors"></div>
-        </div>
-
         <div class="topbar-right">
           <div class="topbar-scenes" id="scenes-grid" aria-label="Hızlı Senaryolar"></div>
 
@@ -127,6 +113,7 @@
       <section class="dashboard-content">
         <div class="page-heading">
           <h2 id="view-title">Master Cihazlar</h2>
+          <div id="view-sensors" class="topbar-sensors"></div>
         </div>
         <div id="dashboard-content">
           <!-- JS tarafından doldurulacak -->

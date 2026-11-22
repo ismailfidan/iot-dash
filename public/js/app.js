@@ -24,9 +24,6 @@ const viewTitleEl = document.getElementById('view-title');
 const viewSensorsEl = document.getElementById('view-sensors');
 const wsDotEl = document.getElementById('ws-dot');
 const wsPillEl = document.getElementById('ws-status-pill');
-const hubDotEl = document.getElementById('hub-status-dot');
-const hubTitleEl = document.getElementById('hub-status-title');
-const hubSubEl = document.getElementById('hub-status-sub');
 const toastContainer = document.getElementById('toast-container');
 const btnToggleEdit = document.getElementById('btn-toggle-edit');
 const editActionsEl = document.getElementById('edit-actions');
@@ -132,12 +129,6 @@ function updateHeaderTitles(snapshot, filter) {
       `;
     }
   }
-
-  hubDotEl.className = `status-dot ${snapshot.hubConnected ? 'live' : 'sim'}`;
-  hubTitleEl.textContent = snapshot.hubConnected ? 'ESP32 Canlı Bağlı' : 'Tasarım & Simülasyon';
-  hubSubEl.textContent = snapshot.hubConnected
-    ? 'Ana Merkez Senkronize'
-    : 'ESP32 Ana Merkez Bekleniyor';
 }
 
 // Store abonelikleri
