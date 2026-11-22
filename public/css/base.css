@@ -873,6 +873,94 @@ body.is-edit-mode .edit-actions {
   .dashboard-content {
     padding: 10px 10px 16px;
   }
+
+  /* Mobil Dikey Kullanımda Kompakt Sidebar, Logo ve Buton Boyutları */
+  .app-shell {
+    grid-template-columns: 172px 1fr;
+  }
+
+  .app-shell.is-collapsed {
+    grid-template-columns: 56px 1fr;
+  }
+
+  .sidebar {
+    padding: 8px 6px;
+  }
+
+  .brand {
+    gap: 8px;
+    padding: 2px 2px 8px;
+  }
+
+  .brand-logo-img,
+  .app-shell.is-collapsed .brand-logo-img {
+    width: 38px;
+    height: 38px;
+  }
+
+  .app-shell.is-collapsed .brand {
+    width: 38px;
+    padding: 2px 0 8px;
+  }
+
+  .brand-title {
+    font-size: 0.84rem;
+  }
+
+  .brand-sub {
+    font-size: 0.58rem;
+  }
+
+  .nav-list,
+  .app-shell.is-collapsed .nav-list {
+    gap: 7px;
+    margin-top: 6px;
+    padding: 4px 0;
+  }
+
+  .nav-item {
+    min-height: 38px;
+    padding: 0 9px;
+    font-size: 0.78rem;
+  }
+
+  .nav-item-left svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .app-shell.is-collapsed .nav-item {
+    width: 38px;
+    height: 38px;
+    min-height: 38px;
+  }
+
+  .nav-badge,
+  .app-shell.is-collapsed .nav-badge {
+    min-width: 16px;
+    height: 16px;
+    font-size: 0.62rem;
+    padding: 0 3px;
+  }
+
+  .app-shell.is-collapsed .nav-divider,
+  .app-shell.is-collapsed .sidebar-footer {
+    width: 38px;
+  }
+
+  .btn-ghost {
+    height: 34px;
+    font-size: 0.72rem;
+  }
+
+  .btn-icon {
+    width: 34px;
+  }
+
+  .app-shell.is-collapsed .btn-ghost {
+    width: 38px;
+    height: 38px;
+  }
 }
 
 /* Mobil / Dokunmatik Cihazlarda 120Hz Pürüzsüz Scroll İçin Ağır Backdrop-Filter ve Alpha Overdraw İptali */
