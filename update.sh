@@ -50,23 +50,16 @@ echo -e "${GREEN}✔ .env dosyası hazır.${NC}\n"
 # 3. Bağımlılıkların Güncellenmesi & İzinler
 echo -e "${YELLOW}📦 [3/4] Node.js bağımlılıkları güncelleniyor (npm install)...${NC}"
 export PATH="/www/server/nodejs/v24.19.0/bin:$PATH"
-chown -R tfr_server:www "$PROJECT_DIR" 2>/dev/null || sudo chown -R tfr_server:www "$PROJECT_DIR" 2>/dev/null || true
 npm install --omit=dev --no-audit --no-fund
 mkdir -p data
-chown -R www:www "$PROJECT_DIR/data" 2>/dev/null || sudo chown -R www:www "$PROJECT_DIR/data" 2>/dev/null || true
 echo -e "${GREEN}✔ Bağımlılıklar başarıyla yüklendi.${NC}\n"
 
-# 4. aaPanel Node Servisi / PM2 Yeniden Başlatma
+# 4. PM2 Servisi Yeniden Başlatma
 echo -e "${YELLOW}🔄 [4/4] Uygulama servisi (iot_tekfikir) yeniden başlatılıyor...${NC}"
-if sudo -n /www/server/panel/pyenv/bin/python /www/server/panel/script/nodejs-service.py iot_tekfikir restart > /dev/null 2>&1; then
-  pm2 delete iot_tekfikir > /dev/null 2>&1 || true
-  sudo chown -R tfr_server:www "$PROJECT_DIR" 2>/dev/null || true
-  sudo chmod -R 775 "$PROJECT_DIR" 2>/dev/null || true
-  echo -e "${GREEN}✔ aaPanel Node servisi (iot_tekfikir - Port 3004) yeniden başlatıldı.${NC}"
-elif command -v pm2 &> /dev/null; then
+if command -v pm2 &> /dev/null; then
   if pm2 describe iot_tekfikir > /dev/null 2>&1; then
     pm2 restart iot_tekfikir
-    echo -e "${GREEN}✔ PM2 servisi (iot_tekfikir) yeniden başlatıldı.${NC}"
+    echo -e "${GREEN}✔ PM2 servisi (iot_tekfikir - Port 3004) yeniden başlatıldı.${NC}"
   else
     pm2 start server.js --name "iot_tekfikir" --time
     pm2 save
