@@ -13,6 +13,7 @@ export const SPACES_CONFIG = [
     node: {
       nodeId: 'ESP32-MAIN-00',
       role: 'gateway',
+      model: 'ESP32 WROOM 32D',
       protocol: 'Wi-Fi + ESP-NOW Master',
       macAddress: 'AA:BB:CC:00:00:01',
       online: true,
@@ -181,6 +182,7 @@ export const SPACES_CONFIG = [
     node: {
       nodeId: 'ESP32-MINI-01',
       role: 'mini',
+      model: 'ESP32 C3 MINI',
       protocol: 'ESP-NOW Peer',
       macAddress: 'AA:BB:CC:00:01:01',
       online: true,
@@ -240,6 +242,7 @@ export const SPACES_CONFIG = [
     node: {
       nodeId: 'ESP32-MINI-02',
       role: 'mini',
+      model: 'ESP32 C3 MINI',
       protocol: 'ESP-NOW Peer',
       macAddress: 'AA:BB:CC:00:02:01',
       online: true,
@@ -294,6 +297,7 @@ export const SPACES_CONFIG = [
     node: {
       nodeId: 'ESP32-MINI-03',
       role: 'mini',
+      model: 'ESP32 C3 MINI',
       protocol: 'ESP-NOW Peer',
       macAddress: 'AA:BB:CC:00:03:01',
       online: true,
@@ -384,6 +388,7 @@ export const SPACES_CONFIG = [
     node: {
       nodeId: 'ESP32-MINI-04',
       role: 'mini',
+      model: 'ESP32 C3 MINI',
       protocol: 'ESP-NOW Peer',
       macAddress: 'AA:BB:CC:00:04:01',
       online: true,
@@ -430,6 +435,7 @@ export const SPACES_CONFIG = [
     node: {
       nodeId: 'ESP32-MINI-05',
       role: 'mini',
+      model: 'ESP32 C3 MINI',
       protocol: 'ESP-NOW Peer',
       macAddress: 'AA:BB:CC:00:05:01',
       online: true,

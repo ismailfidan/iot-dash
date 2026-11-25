@@ -99,16 +99,17 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 10px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid color-mix(in srgb, var(--space-accent, var(--accent-primary)) 30%, var(--glass-border));
+  gap: 8px 12px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .space-title-group {
   display: flex;
   align-items: center;
   gap: 12px;
+  min-width: 0;
 }
 
 .space-icon-box {
@@ -120,12 +121,17 @@
   background: color-mix(in srgb, var(--space-accent, var(--accent-primary)) 16%, transparent);
   border: 1px solid color-mix(in srgb, var(--space-accent, var(--accent-primary)) 36%, transparent);
   color: var(--space-accent, var(--accent-primary));
+  flex-shrink: 0;
 }
 
+.space-title-group h2,
 .space-title-group h3 {
   font-size: 1.12rem;
   font-weight: 700;
   letter-spacing: -0.015em;
+  line-height: 1.2;
+  color: var(--text-primary);
+  margin: 0;
 }
 
 .space-subtitle {
@@ -145,14 +151,22 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  min-height: 30px;
   padding: 6px 11px;
-  border-radius: var(--radius-card);
+  border-radius: calc(var(--radius-card) - 2px);
   background: var(--bg-card);
   border: 1px solid var(--glass-border);
   font-size: 0.78rem;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
   color: var(--text-secondary);
+}
+
+.sensor-pill svg,
+.node-pill svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
 }
 
 .sensor-pill strong {
@@ -164,8 +178,9 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  min-height: 30px;
   padding: 6px 11px;
-  border-radius: var(--radius-card);
+  border-radius: calc(var(--radius-card) - 2px);
   background: rgba(34, 197, 94, 0.1);
   border: 1px solid rgba(34, 197, 94, 0.25);
   color: var(--accent-success);
@@ -719,13 +734,15 @@ body.is-reordering {
   padding: 0;
   border-radius: 50%;
   border: 1px solid #233250;
-  background: linear-gradient(160deg, #0c1428 0%, #070c19 100%);
+  background: linear-gradient(180deg, #0c1428 0%, #070c19 100%);
   box-shadow:
     inset 0 2px 4px rgba(0, 0, 0, 0.65),
     inset 0 -1px 0 rgba(255, 255, 255, 0.05);
   color: #52637c;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
   flex-shrink: 0;
   align-self: center;
   cursor: pointer;
@@ -738,8 +755,10 @@ body.is-reordering {
 }
 
 .card-power-btn svg {
-  width: 19px;
-  height: 19px;
+  width: 20px;
+  height: 20px;
+  display: block;
+  flex-shrink: 0;
 }
 
 .device-card.is-on .card-power-btn {
@@ -1071,16 +1090,28 @@ body.is-reordering {
 /* --- ESP-NOW Topoloji Görünümü --- */
 .topology-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
 }
 
+@media (max-width: 1100px) {
+  .topology-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .topology-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .node-card {
-  padding: 20px;
+  padding: 18px;
   border-radius: var(--radius-md);
   background: linear-gradient(
     145deg,
-    color-mix(in srgb, var(--space-accent, var(--accent-primary)) 10%, transparent),
+    color-mix(in srgb, var(--space-accent, var(--accent-primary)) 11%, transparent),
     var(--bg-card)
   );
   border: 1px solid var(--glass-border);
@@ -1091,7 +1122,14 @@ body.is-reordering {
 }
 
 .node-card.is-gateway {
-  border-color: color-mix(in srgb, var(--space-accent, var(--accent-primary)) 45%, transparent);
+  background: linear-gradient(
+    145deg,
+    rgba(245, 158, 11, 0.16) 0%,
+    rgba(120, 53, 15, 0.12) 48%,
+    var(--bg-card) 100%
+  );
+  border-color: rgba(245, 158, 11, 0.45);
+  border-top: 2px solid #f59e0b;
 }
 
 .node-card-head {
@@ -1106,31 +1144,62 @@ body.is-reordering {
   font-weight: 700;
   padding: 4px 10px;
   border-radius: var(--radius-card);
-  background: rgba(56, 189, 248, 0.18);
-  color: var(--accent-primary);
+  background: rgba(245, 158, 11, 0.2);
+  border: 1px solid rgba(245, 158, 11, 0.42);
+  color: #fbbf24;
+  white-space: nowrap;
 }
 
 .node-card:not(.is-gateway) .node-role-badge {
   background: rgba(167, 139, 250, 0.18);
+  border-color: rgba(167, 139, 250, 0.35);
   color: var(--accent-purple);
 }
 
 .node-meta-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  font-size: 0.82rem;
+  gap: 0;
+  font-size: 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: calc(var(--radius-card) - 2px);
+  background: rgba(6, 11, 24, 0.45);
+  overflow: hidden;
+}
+
+.node-card.is-gateway .node-meta-list {
+  border-color: rgba(245, 158, 11, 0.28);
 }
 
 .node-meta-row {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 42% 58%;
+  align-items: center;
   color: var(--text-secondary);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.node-meta-row:last-child {
+  border-bottom: none;
+}
+
+.node-meta-row span {
+  padding: 7px 10px;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .node-meta-row code {
+  padding: 7px 10px;
   font-family: var(--font-sans);
   font-variant-numeric: tabular-nums;
   color: var(--text-primary);
   font-size: 0.78rem;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

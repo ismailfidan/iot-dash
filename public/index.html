@@ -52,16 +52,93 @@
 
   <!-- Ana Dashboard Kabuğu -->
   <div id="app-shell" class="app-shell hidden">
-    <!-- Yan Menü (Masaüstü) / Üst Navigasyon (Mobil & Tablet) -->
-    <aside class="sidebar glass-panel">
-      <div class="brand">
-        <img src="/img/logo-mini.svg" alt="TEKFIKIR - IOT Logo" class="brand-logo-img" />
+    <!-- Tek Birleşik Kiosk Üst Çubuğu (Tam Genişlik: Solda Logo, Sağda Kontrol Butonları) -->
+    <header class="topbar">
+      <div class="brand topbar-brand">
+        <img src="/img/logo-mini.svg" alt="TEK FİKİR - IOT Logo" class="brand-logo-img" />
         <div class="brand-text">
-          <span class="brand-title">TEKFIKIR - IOT</span>
+          <span class="brand-title">TEK FİKİR - IOT</span>
           <span class="brand-sub">AKILLI YAŞAM ALANLARI</span>
         </div>
       </div>
 
+      <div class="topbar-right">
+        <button
+          type="button"
+          id="topbar-wifi-btn"
+          class="topbar-action-btn is-wifi is-active"
+          title="Bağlantı Durumu: Aktif"
+          aria-label="Bağlantı Durumu"
+        >
+          <span id="topbar-wifi-icon"></span>
+        </button>
+
+        <button
+          type="button"
+          id="topbar-active-btn"
+          class="topbar-action-btn is-bolt"
+          title="Aktif Cihazlar"
+          aria-label="Aktif Cihazlar"
+        >
+          <span id="topbar-bolt-icon"></span>
+          <span id="topbar-active-badge" class="topbar-action-badge">4</span>
+        </button>
+
+        <button
+          type="button"
+          id="topbar-topology-btn"
+          class="topbar-action-btn"
+          title="ESP-NOW Ağı"
+          aria-label="ESP-NOW Ağı"
+        >
+          <span id="topbar-topology-icon"></span>
+        </button>
+
+        <button
+          type="button"
+          id="btn-toggle-edit"
+          class="topbar-action-btn"
+          title="Kart Sıralamasını Düzenle"
+          aria-label="Kart Sıralamasını Düzenle"
+        >
+          <span id="icon-toggle-edit"></span>
+        </button>
+
+        <div id="edit-actions" class="edit-actions hidden">
+          <button type="button" id="btn-cancel-edit" class="btn-edit-action btn-edit-cancel" title="Vazgeç">
+            <span id="icon-cancel-edit"></span>
+            <span>Vazgeç</span>
+          </button>
+          <button type="button" id="btn-save-edit" class="btn-edit-action btn-edit-save" title="Kaydet">
+            <span id="icon-save-edit"></span>
+            <span>Kaydet</span>
+          </button>
+        </div>
+
+        <button
+          type="button"
+          id="topbar-settings-btn"
+          class="topbar-action-btn"
+          title="Ayarlar"
+          aria-label="Ayarlar"
+        >
+          <span id="topbar-settings-icon"></span>
+        </button>
+
+        <button
+          type="button"
+          id="topbar-logout-btn"
+          class="topbar-action-btn is-logout"
+          title="Güvenli Çıkış"
+          aria-label="Oturumu Kapat"
+        >
+          <span id="topbar-logout-icon"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Yan Menü (Header Altında Sol Sütun) -->
+    <aside class="sidebar glass-panel">
       <nav class="nav-list" id="space-nav" aria-label="Yaşam Alanları">
         <!-- JS tarafından doldurulacak -->
       </nav>
@@ -71,53 +148,24 @@
           <span class="btn-icon" id="sidebar-toggle-icon"></span>
           <span>Menüyü Kapat</span>
         </button>
-
-        <button type="button" id="logout-btn" class="btn-ghost" title="Güvenli Çıkış">
-          <span class="btn-icon" id="logout-icon"></span>
-          <span>Oturumu Kapat</span>
-        </button>
       </div>
     </aside>
 
-    <!-- Ana İçerik Alanı (Kiosk Çalışma Yüzeyi) -->
+    <!-- Ana İçerik Alanı (Header Altında Sağ Çalışma Yüzeyi) -->
     <main class="main-content">
-      <!-- Tek Birleşik Kiosk Durum & Senaryo Çubuğu -->
-      <header class="topbar">
-        <div class="topbar-right">
-          <div class="topbar-scenes" id="scenes-grid" aria-label="Hızlı Senaryolar"></div>
-
-          <button type="button" id="btn-toggle-edit" class="topbar-scene-btn" title="Kart Sıralamasını Düzenle" aria-label="Kart Sıralamasını Düzenle">
-            <span id="icon-toggle-edit"></span>
-          </button>
-
-          <div id="edit-actions" class="edit-actions hidden">
-            <button type="button" id="btn-cancel-edit" class="btn-edit-action btn-edit-cancel" title="Vazgeç">
-              <span id="icon-cancel-edit"></span>
-              <span>Vazgeç</span>
-            </button>
-            <button type="button" id="btn-save-edit" class="btn-edit-action btn-edit-save" title="Kaydet">
-              <span id="icon-save-edit"></span>
-              <span>Kaydet</span>
-            </button>
-          </div>
-
-          <div class="topbar-divider"></div>
-          <button type="button" id="btn-fullscreen" class="topbar-scene-btn" title="Tam Ekran Modu" aria-label="Tam Ekran Modu">
-            <span id="icon-fullscreen"></span>
-          </button>
-          <div class="ws-pill" id="ws-status-pill" title="WebSocket Senkronizasyon Durumu">
-            <span class="ws-dot" id="ws-dot"></span>
-          </div>
-          <div class="clock-pill" id="live-clock">--:--</div>
-        </div>
-      </header>
 
       <!-- Dinamik Kiosk Kontrol Izgarası -->
       <section class="dashboard-content">
-        <div class="page-heading">
-          <h2 id="view-title">Master Cihazlar</h2>
-          <div id="view-sensors" class="topbar-sensors"></div>
-        </div>
+        <header class="page-heading space-header" id="page-heading">
+          <div class="space-title-group">
+            <div id="view-icon" class="space-icon-box"></div>
+            <div>
+              <h2 id="view-title">Master Cihazlar</h2>
+              <p id="view-subtitle" class="space-subtitle">Ana Merkez ESP32 • Tüm Buton Stilleri</p>
+            </div>
+          </div>
+          <div id="view-sensors" class="space-telemetry"></div>
+        </header>
         <div id="dashboard-content">
           <!-- JS tarafından doldurulacak -->
         </div>

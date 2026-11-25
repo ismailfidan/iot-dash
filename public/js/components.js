@@ -44,7 +44,7 @@ function getDeviceStateText(device) {
  */
 export function renderNavigation(navEl, snapshot, activeFilter) {
   const existingBtns = navEl.querySelectorAll('[data-filter]');
-  if (existingBtns.length === snapshot.spaces.length + 2) {
+  if (existingBtns.length === snapshot.spaces.length) {
     for (const space of snapshot.spaces) {
       const btn = navEl.querySelector(`[data-filter="${space.id}"]`);
       if (!btn) continue;
@@ -65,8 +65,6 @@ export function renderNavigation(navEl, snapshot, activeFilter) {
         badge.remove();
       }
     }
-    navEl.querySelector('[data-filter="all"]')?.classList.toggle('active', activeFilter === 'all');
-    navEl.querySelector('[data-filter="topology"]')?.classList.toggle('active', activeFilter === 'topology');
     return;
   }
 
@@ -95,22 +93,6 @@ export function renderNavigation(navEl, snapshot, activeFilter) {
     `;
   }
 
-  html += `
-    <div class="nav-divider"></div>
-    <button type="button" class="nav-item ${activeFilter === 'all' ? 'active' : ''}" data-filter="all" title="Tüm Alanlar">
-      <span class="nav-item-left">
-        ${getIcon('grid')}
-        <span class="nav-item-label">Tüm Alanlar</span>
-      </span>
-    </button>
-    <button type="button" class="nav-item ${activeFilter === 'topology' ? 'active' : ''}" data-filter="topology" title="ESP-NOW Ağı">
-      <span class="nav-item-left">
-        ${getIcon('cpu')}
-        <span class="nav-item-label">ESP-NOW Ağı</span>
-      </span>
-    </button>
-  `;
-
   navEl.innerHTML = html;
 }
 
@@ -118,6 +100,7 @@ export function renderNavigation(navEl, snapshot, activeFilter) {
  * Üst Çubuk Kompakt İkonlu Hızlı Senaryo Butonları
  */
 export function renderScenes(scenesEl, snapshot) {
+  if (!scenesEl) return;
   const existing = scenesEl.querySelectorAll('[data-scene-id]');
   if (existing.length === snapshot.scenes.length) {
     existing.forEach((btn) => {
@@ -502,8 +485,8 @@ export function renderDashboardContent(containerEl, snapshot, activeFilter) {
         ${snapshot.spaces
           .map((space) => {
             const isGw = space.node.role === 'gateway';
-            const accent = space.theme?.accent || '#38bdf8';
-            const glow = space.theme?.glow || 'rgba(56, 189, 248, 0.22)';
+            const accent = isGw ? '#f59e0b' : space.theme?.accent || '#38bdf8';
+            const glow = isGw ? 'rgba(245, 158, 11, 0.24)' : space.theme?.glow || 'rgba(56, 189, 248, 0.22)';
             return `
               <article class="node-card ${isGw ? 'is-gateway' : ''}" style="--space-accent:${accent};--space-glow:${glow}">
                 <div class="node-card-head">
@@ -519,6 +502,7 @@ export function renderDashboardContent(containerEl, snapshot, activeFilter) {
 
                 <div class="node-meta-list">
                   <div class="node-meta-row"><span>Protokol</span><code>${space.node.protocol}</code></div>
+                  <div class="node-meta-row"><span>Cihaz Modeli</span><code>${isGw ? 'ESP32 WROOM 32D' : space.node.model || 'ESP32 C3 MINI'}</code></div>
                   <div class="node-meta-row"><span>MAC Adresi</span><code>${space.node.macAddress}</code></div>
                   <div class="node-meta-row"><span>Sinyal (RSSI)</span><code>${space.node.rssi} dBm</code></div>
                   <div class="node-meta-row"><span>Cihaz Sayısı</span><code>${space.devices.length} Bileşen</code></div>
@@ -589,7 +573,7 @@ export function bindDashboardEvents(containerEl, scenesEl, navEl) {
     store.setFilter(btn.dataset.filter);
   });
 
-  scenesEl.addEventListener('click', (e) => {
+  scenesEl?.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-scene-id]');
     if (!btn) return;
     store.sendSceneApply(btn.dataset.sceneId);

@@ -2,7 +2,7 @@
   "hub-main": [
     {
       "id": "master-switch-s",
-      "size": "s",
+      "size": "m",
       "rightControl": "power"
     },
     {
@@ -22,7 +22,7 @@
     },
     {
       "id": "master-slider-m-power",
-      "size": "l",
+      "size": "m",
       "rightControl": "metric"
     },
     {
@@ -42,22 +42,22 @@
     },
     {
       "id": "master-switch-l",
-      "size": "l",
+      "size": "m",
       "rightControl": "power"
     },
     {
       "id": "master-dimmer-l",
-      "size": "l",
+      "size": "m",
       "rightControl": "metric"
     },
     {
       "id": "master-fan-l",
-      "size": "l",
+      "size": "m",
       "rightControl": "metric"
     },
     {
       "id": "master-climate-l",
-      "size": "l",
+      "size": "m",
       "rightControl": "metric"
     }
   ],

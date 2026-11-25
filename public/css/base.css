@@ -156,27 +156,32 @@ body::before {
 
 /* --- Tam Ekran Kiosk İskeleti (Kenardan Kenara, Pull-to-Refresh Destekli) --- */
 .app-shell {
+  --topbar-height: 62px;
+  --sidebar-top-gap: 12px;
   display: grid;
   grid-template-columns: 220px 1fr;
+  grid-template-rows: var(--topbar-height) 1fr;
   width: 100%;
   min-height: 100dvh;
   background: transparent;
 }
 
-/* Sol Kiosk Dock / Menü */
+/* Sol Kiosk Dock / Menü (Header Altında Boşluklu & Sağ Üst Köşesi Yuvarlatılmış Kart) */
 .sidebar {
   border: none;
+  border-top: 1px solid var(--glass-border);
   border-right: 1px solid var(--glass-border);
-  border-radius: 0;
+  border-radius: 0 16px 0 0;
   background: var(--glass-sheen), var(--bg-elevated);
   backdrop-filter: var(--glass-blur-light);
   -webkit-backdrop-filter: var(--glass-blur-light);
+  margin-top: var(--sidebar-top-gap);
   padding: 10px 8px;
   display: flex;
   flex-direction: column;
-  height: 100dvh;
+  height: calc(100dvh - var(--topbar-height) - var(--sidebar-top-gap));
   position: sticky;
-  top: 0;
+  top: calc(var(--topbar-height) + var(--sidebar-top-gap));
   overflow: hidden;
 }
 
@@ -184,8 +189,9 @@ body::before {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 4px 2px 10px;
-  border-bottom: 1px solid var(--glass-border);
+  padding: 0;
+  border-bottom: none;
+  min-width: 0;
 }
 
 .brand-logo-img {
@@ -198,15 +204,17 @@ body::before {
 }
 
 .brand-text {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
+  align-items: flex-start;
   min-width: 0;
 }
 
 .brand-title {
   font-weight: 800;
   font-size: 0.98rem;
-  letter-spacing: 0;
+  letter-spacing: 0.068em;
+  margin-right: -0.068em;
   line-height: 1.15;
   white-space: nowrap;
 }
@@ -214,7 +222,8 @@ body::before {
 .brand-sub {
   font-size: 0.67rem;
   font-weight: 600;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.008em;
+  margin-right: -0.008em;
   color: var(--text-muted);
   margin-top: 2px;
   white-space: nowrap;
@@ -224,8 +233,8 @@ body::before {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-top: 10px;
-  padding: 5px 0;
+  margin-top: 0;
+  padding: 6px 0;
   flex: 1;
   overflow-y: auto;
   scrollbar-width: none;
@@ -323,17 +332,19 @@ body::before {
 }
 
 .nav-badge {
-  min-width: 18px;
+  width: 18px;
   height: 18px;
-  padding: 0 5px;
-  border-radius: 999px;
-  font-size: 0.68rem;
-  font-weight: 800;
+  aspect-ratio: 1 / 1;
+  padding: 1px 0 0 0;
+  border-radius: 50%;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
   line-height: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+  display: inline-grid;
+  place-items: center;
   background: #f59e0b;
   color: #080c14;
   flex-shrink: 0;
@@ -403,22 +414,22 @@ body::before {
 .main-content {
   display: flex;
   flex-direction: column;
-  min-height: 100dvh;
+  min-height: calc(100dvh - var(--topbar-height));
   min-width: 0;
 }
 
-/* Üst Tek Birleşik Kiosk Durum & Senaryo Çubuğu */
+/* Üst Tek Birleşik Kiosk Durum & Kontrol Çubuğu (Tam Ekran Genişliği) */
 .topbar {
+  grid-column: 1 / -1;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 20;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
   gap: 8px 10px;
-  min-height: 48px;
-  padding: 7px 10px;
+  height: var(--topbar-height);
+  padding: 0 12px;
   background: var(--glass-sheen), var(--bg-elevated);
   backdrop-filter: var(--glass-blur-light);
   -webkit-backdrop-filter: var(--glass-blur-light);
@@ -451,15 +462,23 @@ body::before {
 .topbar-sensor-chip {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 3px 8px;
-  border-radius: var(--radius-card);
+  gap: 5px;
+  height: 30px;
+  min-height: 30px;
+  padding: 0 10px;
+  border-radius: calc(var(--radius-card) - 2px);
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--glass-border);
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   color: var(--text-secondary);
+}
+
+.topbar-sensor-chip svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
 }
 
 .topbar-sensor-chip.is-rssi {
@@ -471,9 +490,135 @@ body::before {
 .topbar-right {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   flex-shrink: 0;
   margin-left: auto;
+}
+
+.topbar-action-btn {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(24, 31, 46, 0.85);
+  color: #8e9db2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    transform 0.08s ease,
+    background 0.16s ease,
+    border-color 0.16s ease,
+    color 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.topbar-action-btn:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  color: var(--text-primary);
+}
+
+.topbar-action-btn:active {
+  transform: translateY(1px) scale(0.95);
+}
+
+.topbar-action-btn > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.topbar-action-btn svg {
+  width: 19px;
+  height: 19px;
+  display: block;
+}
+
+.topbar-action-btn.is-bolt {
+  background: rgba(245, 158, 11, 0.08);
+  border-color: rgba(245, 158, 11, 0.45);
+  color: #f59e0b;
+}
+
+.topbar-action-btn.is-bolt:hover {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.7);
+}
+
+.topbar-action-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  z-index: 2;
+  width: 18px;
+  height: 18px;
+  aspect-ratio: 1 / 1;
+  padding: 1px 0 0 0;
+  border-radius: 50%;
+  background: #f59e0b;
+  color: #080c14;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  box-shadow: 0 0 0 2px #090e1a;
+  display: inline-grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.topbar-action-btn.is-selected {
+  background: rgba(56, 189, 248, 0.2);
+  border-color: rgba(56, 189, 248, 0.6);
+  color: var(--accent-primary);
+}
+
+.topbar-action-btn.is-bolt.is-selected {
+  background: rgba(245, 158, 11, 0.22);
+  border-color: rgba(245, 158, 11, 0.8);
+  color: #fbbf24;
+}
+
+.topbar-action-btn.is-logout {
+  background: rgba(239, 68, 68, 0.14);
+  border-color: rgba(239, 68, 68, 0.38);
+  color: #f87171;
+}
+
+.topbar-action-btn.is-logout:hover {
+  background: rgba(239, 68, 68, 0.24);
+  border-color: rgba(239, 68, 68, 0.62);
+  color: #fecaca;
+}
+
+.topbar-action-btn.is-wifi {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+
+.topbar-action-btn.is-wifi svg {
+  filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.45));
+}
+
+.topbar-action-btn.is-wifi.is-active {
+  background: linear-gradient(145deg, #0d9468 0%, #047852 100%);
+  border-color: rgba(16, 185, 129, 0.45);
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(5, 150, 105, 0.26);
+}
+
+.topbar-action-btn.is-wifi.is-passive {
+  background: linear-gradient(145deg, #ef4444 0%, #b91c1c 100%);
+  border-color: rgba(248, 113, 113, 0.55);
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.35);
 }
 
 .topbar-scenes {
@@ -541,9 +686,9 @@ body::before {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  height: 32px;
-  padding: 0 10px;
-  border-radius: var(--radius-card);
+  height: 38px;
+  padding: 0 11px;
+  border-radius: 10px;
   font-family: inherit;
   font-size: 0.76rem;
   font-weight: 600;
@@ -649,18 +794,12 @@ body.is-edit-mode .edit-actions {
 }
 
 .page-heading {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
   margin-bottom: 14px;
 }
 
-.page-heading h2 {
-  font-size: 1.15rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: var(--text-primary);
+.page-heading .space-telemetry {
+  margin-left: auto;
+  justify-content: flex-end;
 }
 
 /* Butonlar */
@@ -756,27 +895,10 @@ body.is-edit-mode .edit-actions {
   align-items: center;
 }
 
-.app-shell.is-collapsed .brand {
-  flex-direction: row;
-  justify-content: center;
-  gap: 0;
-  padding: 4px 0 10px;
-  width: 48px;
-}
-
-.app-shell.is-collapsed .brand-logo-img {
-  width: 48px;
-  height: 48px;
-}
-
-.app-shell.is-collapsed .brand-text {
-  display: none;
-}
-
 .app-shell.is-collapsed .nav-list {
   width: 100%;
   align-items: center;
-  margin-top: 8px;
+  margin-top: 0;
   padding: 6px 0;
   gap: 10px;
 }
@@ -809,10 +931,12 @@ body.is-edit-mode .edit-actions {
   top: -4px;
   right: -4px;
   z-index: 2;
-  min-width: 18px;
+  width: 18px;
   height: 18px;
-  padding: 0 4px;
-  font-size: 0.66rem;
+  aspect-ratio: 1 / 1;
+  padding: 1px 0 0 0;
+  border-radius: 50%;
+  font-size: 0.62rem;
   box-shadow: 0 0 0 2px #090e1a;
   pointer-events: none;
 }
@@ -859,7 +983,7 @@ body.is-edit-mode .edit-actions {
 
 @media (max-width: 640px) {
   .topbar {
-    padding: 7px 10px;
+    padding: 0 10px;
   }
 
   .topbar-left p {
@@ -876,6 +1000,8 @@ body.is-edit-mode .edit-actions {
 
   /* Mobil Dikey Kullanımda Kompakt Sidebar, Logo ve Buton Boyutları */
   .app-shell {
+    --topbar-height: 52px;
+    --sidebar-top-gap: 10px;
     grid-template-columns: 172px 1fr;
   }
 
@@ -885,22 +1011,17 @@ body.is-edit-mode .edit-actions {
 
   .sidebar {
     padding: 8px 6px;
+    border-radius: 0 14px 0 0;
   }
 
   .brand {
     gap: 8px;
-    padding: 2px 2px 8px;
+    padding: 0;
   }
 
-  .brand-logo-img,
-  .app-shell.is-collapsed .brand-logo-img {
+  .brand-logo-img {
     width: 38px;
     height: 38px;
-  }
-
-  .app-shell.is-collapsed .brand {
-    width: 38px;
-    padding: 2px 0 8px;
   }
 
   .brand-title {
@@ -911,11 +1032,21 @@ body.is-edit-mode .edit-actions {
     font-size: 0.58rem;
   }
 
+  .topbar-action-btn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .topbar-action-btn svg {
+    width: 17px;
+    height: 17px;
+  }
+
   .nav-list,
   .app-shell.is-collapsed .nav-list {
     gap: 7px;
-    margin-top: 6px;
-    padding: 4px 0;
+    margin-top: 0;
+    padding: 6px 0;
   }
 
   .nav-item {
@@ -936,11 +1067,13 @@ body.is-edit-mode .edit-actions {
   }
 
   .nav-badge,
-  .app-shell.is-collapsed .nav-badge {
-    min-width: 16px;
-    height: 16px;
-    font-size: 0.62rem;
-    padding: 0 3px;
+  .app-shell.is-collapsed .nav-badge,
+  .topbar-action-badge {
+    width: 17px;
+    height: 17px;
+    aspect-ratio: 1 / 1;
+    font-size: 0.58rem;
+    padding: 1px 0 0 0;
   }
 
   .app-shell.is-collapsed .nav-divider,
